@@ -1,0 +1,17 @@
+def factorial(n){
+   # Berechnet die Fakultät einer Zahl n (n!)  
+   if n == 0{
+       return 1;
+   }
+   else{
+       return n * factorial(n-1);
+   }
+}
+# Beispielzahl  
+number = 5;
+
+# Berechnung der Fakultät  
+result = factorial(number);
+
+# Ausgabe des Ergebnisses  
+print("Die Fakultät von {number} ist {result}");
