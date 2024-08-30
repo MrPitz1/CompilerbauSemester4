@@ -1,4 +1,4 @@
-from pyparsing import Literal, Forward, Group, ZeroOrMore, ParseException, Word, OneOrMore, printables, LineEnd
+from pyparsing import Literal, Optional, Forward, Group, ZeroOrMore, ParseException, Word, LineEnd, printables
 
 # Definition der Tokens
 Lbrace = Literal('{').suppress()
@@ -15,32 +15,23 @@ nested_content = Forward()
 nested_content <<= Group(Lbrace + ZeroOrMore(identifier | nested_content | line_end) + Rbrace)
 
 # Definition für den gesamten Ausdruck, der auch Bezeichner außerhalb der geschweiften Klammern erkennt
-full_expr = ZeroOrMore(identifier | line_end) + nested_content('brackets') + ZeroOrMore(identifier | line_end)
+full_expr = ZeroOrMore(identifier | line_end) + Optional(nested_content('brackets')) + ZeroOrMore(identifier | line_end)
 
-# Beispiel-Eingaben
-test_strings = [
-    """
-def factorial(n)
-{
-   if n == 0
-   { 
-    return 1;
-   }
-   else
-   {
-       return n * factorial(n-1);
-   }
-}
-number = 5;
-# Berechnung der Fakultaet
-result = factorial(number);
-
-    """,
-]
-
-for test in test_strings:
+# Funktion zum Einlesen des Inhalts aus einer Datei und Parsen des Inhalts
+def parse_file(file_path):
     try:
-        result = full_expr.parseString(test, parseAll=True)
-        print(result)
+        with open(file_path, 'r') as file:
+            file_content = file.read()
+        result = full_expr.parseString(file_content, parseAll=True)
+        return result
     except ParseException as pe:
-        print(f"'{test}' ist ungültig: {pe}")
+        return f"'{file_path}' ist ungültig: {pe}"
+    except FileNotFoundError:
+        return f"Datei '{file_path}' wurde nicht gefunden."
+
+# Pfad zur Datei
+file_path = 'testcode.text'
+
+# Aufruf der Funktion und Ausgabe des Ergebnisses
+parsed_result = parse_file(file_path)
+print(parsed_result)
