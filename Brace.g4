@@ -17,7 +17,7 @@ Lbrace : '{' ;
 Rbrace : '}' ;
 
 // Regel für Wörter (identifier) - erlaubt alles außer { und }
-WORD : ~[\r\n]+ ;
+WORD : ~[\r\n{}]+ ;
 
 // Regel für Whitespace-Zeichen (werden übersprungen)
 WS : [ \t]+ -> skip ;
