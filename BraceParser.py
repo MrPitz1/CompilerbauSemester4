@@ -10,15 +10,16 @@ else:
 
 def serializedATN():
     return [
-        4,1,5,29,2,0,7,0,2,1,7,1,2,2,7,2,1,0,5,0,8,8,0,10,0,12,0,11,9,0,
+        4,1,9,31,2,0,7,0,2,1,7,1,2,2,7,2,1,0,5,0,8,8,0,10,0,12,0,11,9,0,
         1,0,1,0,1,1,1,1,5,1,17,8,1,10,1,12,1,20,9,1,1,1,1,1,1,2,1,2,1,2,
-        3,2,27,8,2,1,2,0,0,3,0,2,4,0,0,29,0,9,1,0,0,0,2,14,1,0,0,0,4,26,
-        1,0,0,0,6,8,3,4,2,0,7,6,1,0,0,0,8,11,1,0,0,0,9,7,1,0,0,0,9,10,1,
-        0,0,0,10,12,1,0,0,0,11,9,1,0,0,0,12,13,5,0,0,1,13,1,1,0,0,0,14,18,
-        5,1,0,0,15,17,3,4,2,0,16,15,1,0,0,0,17,20,1,0,0,0,18,16,1,0,0,0,
-        18,19,1,0,0,0,19,21,1,0,0,0,20,18,1,0,0,0,21,22,5,2,0,0,22,3,1,0,
-        0,0,23,27,5,3,0,0,24,27,3,2,1,0,25,27,5,4,0,0,26,23,1,0,0,0,26,24,
-        1,0,0,0,26,25,1,0,0,0,27,5,1,0,0,0,3,9,18,26
+        1,2,1,2,3,2,29,8,2,1,2,0,0,3,0,2,4,0,0,33,0,9,1,0,0,0,2,14,1,0,0,
+        0,4,28,1,0,0,0,6,8,3,4,2,0,7,6,1,0,0,0,8,11,1,0,0,0,9,7,1,0,0,0,
+        9,10,1,0,0,0,10,12,1,0,0,0,11,9,1,0,0,0,12,13,5,0,0,1,13,1,1,0,0,
+        0,14,18,5,1,0,0,15,17,3,4,2,0,16,15,1,0,0,0,17,20,1,0,0,0,18,16,
+        1,0,0,0,18,19,1,0,0,0,19,21,1,0,0,0,20,18,1,0,0,0,21,22,5,2,0,0,
+        22,3,1,0,0,0,23,29,5,5,0,0,24,29,5,6,0,0,25,29,5,7,0,0,26,29,3,2,
+        1,0,27,29,5,8,0,0,28,23,1,0,0,0,28,24,1,0,0,0,28,25,1,0,0,0,28,26,
+        1,0,0,0,28,27,1,0,0,0,29,5,1,0,0,0,3,9,18,28
     ]
 
 class BraceParser ( Parser ):
@@ -31,9 +32,10 @@ class BraceParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'{'", "'}'" ]
+    literalNames = [ "<INVALID>", "'{'", "'}'", "'''", "'\"'" ]
 
-    symbolicNames = [ "<INVALID>", "LPAREN", "RPAREN", "CODE", "LINEBREAK", 
+    symbolicNames = [ "<INVALID>", "LPAREN", "RPAREN", "SINGLE_QUOTE", "DOUBLE_QUOTE", 
+                      "CODE", "STRING_SINGLE", "STRING_DOUBLE", "LINEBREAK", 
                       "WS" ]
 
     RULE_rule_set = 0
@@ -45,9 +47,13 @@ class BraceParser ( Parser ):
     EOF = Token.EOF
     LPAREN=1
     RPAREN=2
-    CODE=3
-    LINEBREAK=4
-    WS=5
+    SINGLE_QUOTE=3
+    DOUBLE_QUOTE=4
+    CODE=5
+    STRING_SINGLE=6
+    STRING_DOUBLE=7
+    LINEBREAK=8
+    WS=9
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -99,7 +105,7 @@ class BraceParser ( Parser ):
             self.state = 9
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 26) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 482) != 0):
                 self.state = 6
                 self.statements()
                 self.state = 11
@@ -163,7 +169,7 @@ class BraceParser ( Parser ):
             self.state = 18
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 26) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 482) != 0):
                 self.state = 15
                 self.statements()
                 self.state = 20
@@ -191,6 +197,12 @@ class BraceParser ( Parser ):
         def CODE(self):
             return self.getToken(BraceParser.CODE, 0)
 
+        def STRING_SINGLE(self):
+            return self.getToken(BraceParser.STRING_SINGLE, 0)
+
+        def STRING_DOUBLE(self):
+            return self.getToken(BraceParser.STRING_DOUBLE, 0)
+
         def nestedCondition(self):
             return self.getTypedRuleContext(BraceParser.NestedConditionContext,0)
 
@@ -217,22 +229,32 @@ class BraceParser ( Parser ):
         localctx = BraceParser.StatementsContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_statements)
         try:
-            self.state = 26
+            self.state = 28
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [3]:
+            if token in [5]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 23
                 self.match(BraceParser.CODE)
                 pass
-            elif token in [1]:
+            elif token in [6]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 24
-                self.nestedCondition()
+                self.match(BraceParser.STRING_SINGLE)
                 pass
-            elif token in [4]:
+            elif token in [7]:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 25
+                self.match(BraceParser.STRING_DOUBLE)
+                pass
+            elif token in [1]:
+                self.enterOuterAlt(localctx, 4)
+                self.state = 26
+                self.nestedCondition()
+                pass
+            elif token in [8]:
+                self.enterOuterAlt(localctx, 5)
+                self.state = 27
                 self.match(BraceParser.LINEBREAK)
                 pass
             else:

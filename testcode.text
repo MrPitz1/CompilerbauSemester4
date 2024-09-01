@@ -1,8 +1,8 @@
-code { nested { was dein problem}
- {
-    hiu
- }
-}
-{
-"hi{}"
+def factorial(n){
+   if n == 0{ 
+    return 1;
+   }
+   else{
+       return n * factorial(n-1);
+   }
 }
