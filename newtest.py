@@ -54,7 +54,7 @@ def parse_file(file_path):
         lexer = BraceLexer(input_stream)
         token_stream = CommonTokenStream(lexer)
         parser = BraceParser(token_stream)
-        tree = parser.expression()  # Parse the input starting from the 'expression' rule
+        tree = parser.rule_set()  # Parse the input starting from the 'expression' rule
 
         # Convert the parse tree to a nested list representation
         tree_list = parse_tree_to_list(tree)

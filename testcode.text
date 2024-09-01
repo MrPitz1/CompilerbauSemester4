@@ -1,13 +1,8 @@
-def factorial(n) {
-   if n == 0
-   { 
-    return 1;
-   }
-   else
-   {
-       return n * factorial(n-1);
-   }
+code { nested { was dein problem}
+ {
+    hiu
+ }
 }
-number = 5;
-# Berechnung der Fakultaet
-result = factorial(number);
+{
+"hi{}"
+}

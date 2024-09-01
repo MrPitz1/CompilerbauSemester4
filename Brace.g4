@@ -1,23 +1,21 @@
 grammar Brace;
 
-// Einstiegspunkt
-expression : (identifier | line_end)* nested_content? (identifier | line_end)* ;
+// The entry point of the grammar
+rule_set : statements* EOF;
 
-// Regel für geschachtelten Inhalt innerhalb von geschweiften Klammern
-nested_content : Lbrace (identifier | nested_content | line_end)* Rbrace ;
+// Define tokens for curly braces
+LPAREN  : '{';
+RPAREN  : '}';
 
-// Regel für Bezeichner (identifiers)
-identifier : WORD ;
+// Define token for CODE, which is any sequence of characters except `{`, `}`, or line breaks
+CODE    : ~[{}\r\n]+;
 
-// Regel für Zeilenumbrüche
-line_end : '\r\n' | '\r' | '\n' ;
+// Define token for line breaks
+LINEBREAK : [\r\n]+;
 
-// Regel für geschweifte Klammern
-Lbrace : '{' ;
-Rbrace : '}' ;
+// Define token for other whitespace characters and skip them
+WS      : [ \t\u000C]+ -> skip;
 
-// Regel für Wörter (identifier) - erlaubt alles außer { und }
-WORD : ~[\r\n{}]+ ;
-
-// Regel für Whitespace-Zeichen (werden übersprungen)
-WS : [ \t]+ -> skip ;
+// Parser rules
+nestedCondition : LPAREN statements* RPAREN;
+statements       : CODE | nestedCondition | LINEBREAK;

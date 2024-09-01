@@ -1,4 +1,4 @@
-# Generated from C:/Users/simon/Documents/hochschule/compiler/CompilerbauSemester4/Brace.g4 by ANTLR 4.13.2
+# Generated from ./Brace.g4 by ANTLR 4.13.2
 from antlr4 import *
 if "." in __name__:
     from .BraceParser import BraceParser
@@ -8,39 +8,30 @@ else:
 # This class defines a complete listener for a parse tree produced by BraceParser.
 class BraceListener(ParseTreeListener):
 
-    # Enter a parse tree produced by BraceParser#expression.
-    def enterExpression(self, ctx:BraceParser.ExpressionContext):
+    # Enter a parse tree produced by BraceParser#rule_set.
+    def enterRule_set(self, ctx:BraceParser.Rule_setContext):
         pass
 
-    # Exit a parse tree produced by BraceParser#expression.
-    def exitExpression(self, ctx:BraceParser.ExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by BraceParser#nested_content.
-    def enterNested_content(self, ctx:BraceParser.Nested_contentContext):
-        pass
-
-    # Exit a parse tree produced by BraceParser#nested_content.
-    def exitNested_content(self, ctx:BraceParser.Nested_contentContext):
+    # Exit a parse tree produced by BraceParser#rule_set.
+    def exitRule_set(self, ctx:BraceParser.Rule_setContext):
         pass
 
 
-    # Enter a parse tree produced by BraceParser#identifier.
-    def enterIdentifier(self, ctx:BraceParser.IdentifierContext):
+    # Enter a parse tree produced by BraceParser#nestedCondition.
+    def enterNestedCondition(self, ctx:BraceParser.NestedConditionContext):
         pass
 
-    # Exit a parse tree produced by BraceParser#identifier.
-    def exitIdentifier(self, ctx:BraceParser.IdentifierContext):
+    # Exit a parse tree produced by BraceParser#nestedCondition.
+    def exitNestedCondition(self, ctx:BraceParser.NestedConditionContext):
         pass
 
 
-    # Enter a parse tree produced by BraceParser#line_end.
-    def enterLine_end(self, ctx:BraceParser.Line_endContext):
+    # Enter a parse tree produced by BraceParser#statements.
+    def enterStatements(self, ctx:BraceParser.StatementsContext):
         pass
 
-    # Exit a parse tree produced by BraceParser#line_end.
-    def exitLine_end(self, ctx:BraceParser.Line_endContext):
+    # Exit a parse tree produced by BraceParser#statements.
+    def exitStatements(self, ctx:BraceParser.StatementsContext):
         pass
 
 
