@@ -17,8 +17,8 @@ def serializedATN():
         9,10,1,0,0,0,10,12,1,0,0,0,11,9,1,0,0,0,12,13,5,0,0,1,13,1,1,0,0,
         0,14,18,5,1,0,0,15,17,3,4,2,0,16,15,1,0,0,0,17,20,1,0,0,0,18,16,
         1,0,0,0,18,19,1,0,0,0,19,21,1,0,0,0,20,18,1,0,0,0,21,22,5,2,0,0,
-        22,3,1,0,0,0,23,29,5,5,0,0,24,29,5,6,0,0,25,29,5,7,0,0,26,29,3,2,
-        1,0,27,29,5,8,0,0,28,23,1,0,0,0,28,24,1,0,0,0,28,25,1,0,0,0,28,26,
+        22,3,1,0,0,0,23,29,5,9,0,0,24,29,5,7,0,0,25,29,5,8,0,0,26,29,3,2,
+        1,0,27,29,5,5,0,0,28,23,1,0,0,0,28,24,1,0,0,0,28,25,1,0,0,0,28,26,
         1,0,0,0,28,27,1,0,0,0,29,5,1,0,0,0,3,9,18,28
     ]
 
@@ -35,8 +35,8 @@ class BraceParser ( Parser ):
     literalNames = [ "<INVALID>", "'{'", "'}'", "'''", "'\"'" ]
 
     symbolicNames = [ "<INVALID>", "LPAREN", "RPAREN", "SINGLE_QUOTE", "DOUBLE_QUOTE", 
-                      "CODE", "STRING_SINGLE", "STRING_DOUBLE", "LINEBREAK", 
-                      "WS" ]
+                      "LINEBREAK", "WS", "STRING_SINGLE", "STRING_DOUBLE", 
+                      "CODE" ]
 
     RULE_rule_set = 0
     RULE_nestedCondition = 1
@@ -49,11 +49,11 @@ class BraceParser ( Parser ):
     RPAREN=2
     SINGLE_QUOTE=3
     DOUBLE_QUOTE=4
-    CODE=5
-    STRING_SINGLE=6
-    STRING_DOUBLE=7
-    LINEBREAK=8
-    WS=9
+    LINEBREAK=5
+    WS=6
+    STRING_SINGLE=7
+    STRING_DOUBLE=8
+    CODE=9
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -105,7 +105,7 @@ class BraceParser ( Parser ):
             self.state = 9
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 482) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 930) != 0):
                 self.state = 6
                 self.statements()
                 self.state = 11
@@ -169,7 +169,7 @@ class BraceParser ( Parser ):
             self.state = 18
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 482) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 930) != 0):
                 self.state = 15
                 self.statements()
                 self.state = 20
@@ -232,17 +232,17 @@ class BraceParser ( Parser ):
             self.state = 28
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [5]:
+            if token in [9]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 23
                 self.match(BraceParser.CODE)
                 pass
-            elif token in [6]:
+            elif token in [7]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 24
                 self.match(BraceParser.STRING_SINGLE)
                 pass
-            elif token in [7]:
+            elif token in [8]:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 25
                 self.match(BraceParser.STRING_DOUBLE)
@@ -252,7 +252,7 @@ class BraceParser ( Parser ):
                 self.state = 26
                 self.nestedCondition()
                 pass
-            elif token in [8]:
+            elif token in [5]:
                 self.enterOuterAlt(localctx, 5)
                 self.state = 27
                 self.match(BraceParser.LINEBREAK)

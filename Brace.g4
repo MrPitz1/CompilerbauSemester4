@@ -11,18 +11,19 @@ RPAREN  : '}';
 SINGLE_QUOTE : '\'';
 DOUBLE_QUOTE : '"';
 
-// Define token for CODE, which is any sequence of characters except `{`, `}`, or line breaks
-CODE    : ~[{}\r\n]+;
-
-// Define tokens for strings
-STRING_SINGLE : '\'' (~'\'')* '\'' ;
-STRING_DOUBLE : '"' (~'"')* '"' ;
-
-// Define token for line breaks
+// Define tokens for line breaks
 LINEBREAK : [\r\n]+;
 
-// Define token for other whitespace characters and skip them
+// Define tokens for other whitespace characters and skip them
 WS      : [ \t\u000C]+ -> skip;
+
+// Define token for strings
+STRING_SINGLE : '\'' (~'\'')* '\'';
+STRING_DOUBLE : '"' (~'"')* '"';
+
+// Define token for CODE, which is any sequence of characters except `{`, `}`, or line breaks
+// We need to make sure CODE comes after STRING_SINGLE and STRING_DOUBLE to avoid conflict
+CODE    : ~[{}\r\n'"]+;
 
 // Parser rules
 nestedCondition : LPAREN statements* RPAREN;
