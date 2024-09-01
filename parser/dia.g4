@@ -22,7 +22,7 @@ STRING_SINGLE : '\'' (~'\'')* '\'';
 STRING_DOUBLE : '"' (~'"')* '"';
 
 // Define token for CODE, which is any sequence of characters except `{`, `}`, or line breaks
-// We need to make sure CODE comes after STRING_SINGLE and STRING_DOUBLE to avoid conflict
+// Make sure CODE comes after STRING_SINGLE and STRING_DOUBLE to avoid conflict
 CODE    : ~[{}\r\n'"]+;
 
 // Parser rules
