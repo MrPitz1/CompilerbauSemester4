@@ -1,64 +1,41 @@
-from antlr4 import *
 from diaLexer import diaLexer
 from diaParser import diaParser
-from antlr4.error.ErrorListener import ErrorListener
-import json
+from diaListener import diaListener
+from antlr4 import *
 import sys
 
-class CustomErrorListener(ErrorListener):
-    """
-    Throw error if not able to parse the code.
-    """
+class MyCustomListener(diaListener):
     def __init__(self):
-        super().__init__()
-        self.errors = []
+        self.output = ""
+        self.indent_level = 0  # Initialize the indentation level
 
-    def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
-        self.errors.append(f"Line {line}:{column} {msg}")
+    def enterNestedStatements(self, ctx):
+        """
+        Handle the start of a block by increasing the indentation level.
+        """
+        self.indent_level += 1  # Increase the indentation level
+        self.output += ':'
+    def exitNestedStatements(self, ctx):
+        self.indent_level -= 1  # Decrease the indentation level
 
-def parse_tree_to_list(node):
-    """
-    Convert an ANTLR parse tree node into a nested list format.
-    """
-    if isinstance(node, TerminalNode):
-        # Handle terminal nodes (tokens)
-        token_type = node.symbol.type
-        token_text = node.getText().strip()
-        return {token_type: token_text} 
-    
-    if isinstance(node, ParserRuleContext):
-        # Handle parser rule contexts (nodes)
-        result = []
-        for child in node.getChildren():
-            child_list = parse_tree_to_list(child)
-            if child_list is not None:  # Only add non-empty lists
-                result.append(child_list)
-        # Create a dictionary for the current rule context if it has children
-        if result:
-            rule_name = node.__class__.__name__.replace("Context", "")
-            return {rule_name: result}
-        return None
+    def enterStatements(self, ctx):
+        indent = "    " * self.indent_level
+        if ctx.CODE():
+            code_segment = ctx.CODE().getText().strip()
+            if code_segment:
+                self.output += f"{indent}{code_segment}"  # Add code segment with current indentation
+        elif ctx.STRING_SINGLE():
+            string_single_segment = ctx.STRING_SINGLE().getText().strip()
+            if string_single_segment:
+                self.output += f"{string_single_segment}"
+        elif ctx.STRING_DOUBLE():
+            string_double_segment = ctx.STRING_DOUBLE().getText().strip()
+            if string_double_segment:
+                self.output += f"{string_double_segment}"
+        elif ctx.LINEBREAK():
+            self.output += "\n"  # Add a line break
 
-def nested_list_to_json(nested_list):
-    """
-    Convert a nested list representation to a JSON-compatible dictionary.
-    """
-    def convert_to_json(obj):
-        if isinstance(obj, dict):
-            return {k: convert_to_json(v) for k, v in obj.items()}
-        elif isinstance(obj, list):
-            return [convert_to_json(i) for i in obj]
-        else:
-            return obj
-
-    return convert_to_json(nested_list)
-
-def parse_file(file_path):
-    """
-    Parse the file and convert the parse tree to a JSON representation.
-    """
-    error_listener = CustomErrorListener()
-    
+def parse_file_with_listener(file_path, output_file_path):
     try:
         with open(file_path, 'r') as file:
             file_content = file.read()
@@ -68,35 +45,29 @@ def parse_file(file_path):
         token_stream = CommonTokenStream(lexer)
         parser = diaParser(token_stream)
 
-        # Attach the custom error listener to the parser
-        parser.addErrorListener(error_listener)
-
-        # Start parsing from the 'rule_set' rule
+        # Start parsing from the `rule_set` rule
         tree = parser.rule_set()
 
-        # Check if there were any syntax errors
-        if error_listener.errors:
-            return f"Errors during parsing: {'; '.join(error_listener.errors)}"
-        
-        # Convert the parse tree to a nested list representation
-        tree_list = parse_tree_to_list(tree)
+        # Create the listener and walk through the parse tree
+        listener = MyCustomListener()
+        walker = ParseTreeWalker()
+        walker.walk(listener, tree)
 
-        # Convert the nested list to a JSON-compatible dictionary
-        if tree_list:
-            json_data = nested_list_to_json(tree_list)
-            json_str = json.dumps(json_data, indent=2)
-            return json_str
-        return "No content to convert."
+        # Write the output to a file
+        with open(output_file_path, 'w') as output_file:
+            output_file.write(listener.output)
+        
+        print(f"Output saved to {output_file_path}")
     except FileNotFoundError:
-        return f"Datei '{file_path}' wurde nicht gefunden."
+        return f"File '{file_path}' not found."
     except Exception as e:
         return f"An error occurred: {str(e)}"
 
 if __name__ == "__main__":
     try:
         file_path = sys.argv[1]
+        output_file_path = sys.argv[2]  # The second argument is the output file path
     except:
-        print('Usage: python3 parser.py {filename}')
+        print('Usage: python3 parser.py {input_filename} {output_filename}')
         sys.exit(0)
-    json_str = parse_file(file_path)
-    print(json_str)
+    parse_file_with_listener(file_path, output_file_path)
