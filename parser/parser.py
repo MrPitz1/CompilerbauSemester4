@@ -6,8 +6,10 @@ import sys
 
 class MyCustomListener(diaListener):
     def __init__(self):
+        super().__init__()
         self.output = ""
         self.indent_level = 0  # Initialize the indentation level
+        self.start_of_line = True  # Initialize the line start flag
 
     def enterNestedStatements(self, ctx):
         """
@@ -15,6 +17,8 @@ class MyCustomListener(diaListener):
         """
         self.indent_level += 1  # Increase the indentation level
         self.output += ':'
+        self.start_of_line = True  # Mark the start of a new line
+
     def exitNestedStatements(self, ctx):
         self.indent_level -= 1  # Decrease the indentation level
 
@@ -23,7 +27,11 @@ class MyCustomListener(diaListener):
         if ctx.CODE():
             code_segment = ctx.CODE().getText().strip()
             if code_segment:
-                self.output += f"{indent}{code_segment}"  # Add code segment with current indentation
+                if self.start_of_line:
+                    self.output += f"{indent}{code_segment}"  # Add code segment with current indentation
+                    self.start_of_line = False
+                else:
+                    self.output += f"{code_segment}"
         elif ctx.STRING_SINGLE():
             string_single_segment = ctx.STRING_SINGLE().getText().strip()
             if string_single_segment:
@@ -32,8 +40,11 @@ class MyCustomListener(diaListener):
             string_double_segment = ctx.STRING_DOUBLE().getText().strip()
             if string_double_segment:
                 self.output += f"{string_double_segment}"
-        elif ctx.LINEBREAK():
+
+    def exitStatements(self, ctx):
+        if ctx.LINEBREAK():
             self.output += "\n"  # Add a line break
+            self.start_of_line = True  # Mark the start of a new line
 
 def parse_file_with_listener(file_path, output_file_path):
     try:
@@ -49,9 +60,11 @@ def parse_file_with_listener(file_path, output_file_path):
         tree = parser.rule_set()
 
         # Create the listener and walk through the parse tree
+        print('Starting parse...')
         listener = MyCustomListener()
         walker = ParseTreeWalker()
         walker.walk(listener, tree)
+        print('Parsing completed.')
 
         # Write the output to a file
         with open(output_file_path, 'w') as output_file:
@@ -59,15 +72,15 @@ def parse_file_with_listener(file_path, output_file_path):
         
         print(f"Output saved to {output_file_path}")
     except FileNotFoundError:
-        return f"File '{file_path}' not found."
+        print(f"File '{file_path}' not found.")
     except Exception as e:
-        return f"An error occurred: {str(e)}"
+        print(f"An error occurred: {str(e)}")
 
 if __name__ == "__main__":
-    try:
-        file_path = sys.argv[1]
-        output_file_path = sys.argv[2]  # The second argument is the output file path
-    except:
+    if len(sys.argv) != 3:
         print('Usage: python3 parser.py {input_filename} {output_filename}')
-        sys.exit(0)
+        sys.exit(1)
+
+    file_path = sys.argv[1]
+    output_file_path = sys.argv[2]
     parse_file_with_listener(file_path, output_file_path)
