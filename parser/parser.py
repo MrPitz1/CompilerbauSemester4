@@ -58,6 +58,7 @@ def parse_file_with_listener(file_path, output_file_path):
 
         # Start parsing from the `rule_set` rule
         tree = parser.rule_set()
+        print(tree.toStringTree(recog=parser))
 
         # Create the listener and walk through the parse tree
         print('Starting parse...')

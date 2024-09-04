@@ -22,15 +22,19 @@ WS      : [ \t\u000C]+ -> skip;
 STRING_SINGLE : '\'' (~'\'')* '\'';
 STRING_DOUBLE : '"' (~'"')* '"';
 
-// Define token for CODE, which is any sequence of characters except `{`, `}`, or line breaks
+// Define token for CODE, which is any sequence of characters except `{}`, line breaks, or semicolons
 // Make sure CODE comes after STRING_SINGLE and STRING_DOUBLE to avoid conflict
 CODE    : ~[{}\r\n'";]+;
 
-// Add a rule for dictionary parsing
-dictionary : LPAREN (key_value (',' key_value)*)? RPAREN;
+// Define tokens for numbers and commas
+NUMBER : [0-9]+;
+COMMA  : ',';
 
-key_value : CODE ':' (CODE | STRING_SINGLE | STRING_DOUBLE);
+// Update the dictionary rule to properly recognize key-value pairs
+dictionary : LPAREN (key_value (COMMA key_value)*)? RPAREN;
+
+key_value : (CODE | NUMBER) ':' (CODE | NUMBER | STRING_SINGLE | STRING_DOUBLE);
 
 // Parser rules
 nestedStatements : LPAREN statements* RPAREN;
-statements       : CODE | STRING_SINGLE | STRING_DOUBLE | nestedStatements | dictionary | SEMICOLON;
+statements       : dictionary | CODE | STRING_SINGLE | STRING_DOUBLE | nestedStatements | SEMICOLON;

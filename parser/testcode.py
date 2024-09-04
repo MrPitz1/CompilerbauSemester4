@@ -7,27 +7,20 @@ def example_function(x):
                 result += i
             else:
                 result -= i
-
-
     else:
         result -= x
         while x < 10:
             x += 1
             result += x
-
-
     return result
-
 def main():
     values = [5, 15, 25]
     results = []
     for value in values:
         res = example_function(value)
         results.append(res)
-        print(f"Result for {value} is {res}"        )
-
-    print("All results computed."    )
-
-if __name__ =="__main__":
+        print("Result for {value} is {res}")
+    print("All results computed.")
+    a =:
+        1:8,2:4if __name__ =="__main__":
     main()
-

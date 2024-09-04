@@ -28,6 +28,7 @@ def main() {
         print("Result for {value} is {res}");
     }
     print("All results computed.");
+    a = {1:8,2:4}
 }
 
 if __name__ == "__main__" {

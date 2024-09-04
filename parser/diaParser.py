@@ -1,4 +1,4 @@
-# Generated from dia.g4 by ANTLR 4.13.2
+# Generated from C:/Users/Julian/compilerbau-dhbw-4/CompilerbauSemester4/parser/dia.g4 by ANTLR 4.13.2
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -10,16 +10,23 @@ else:
 
 def serializedATN():
     return [
-        4,1,10,31,2,0,7,0,2,1,7,1,2,2,7,2,1,0,5,0,8,8,0,10,0,12,0,11,9,0,
-        1,0,1,0,1,1,1,1,5,1,17,8,1,10,1,12,1,20,9,1,1,1,1,1,1,2,1,2,1,2,
-        1,2,1,2,3,2,29,8,2,1,2,0,0,3,0,2,4,0,0,33,0,9,1,0,0,0,2,14,1,0,0,
-        0,4,28,1,0,0,0,6,8,3,4,2,0,7,6,1,0,0,0,8,11,1,0,0,0,9,7,1,0,0,0,
-        9,10,1,0,0,0,10,12,1,0,0,0,11,9,1,0,0,0,12,13,5,0,0,1,13,1,1,0,0,
-        0,14,18,5,1,0,0,15,17,3,4,2,0,16,15,1,0,0,0,17,20,1,0,0,0,18,16,
-        1,0,0,0,18,19,1,0,0,0,19,21,1,0,0,0,20,18,1,0,0,0,21,22,5,2,0,0,
-        22,3,1,0,0,0,23,29,5,10,0,0,24,29,5,8,0,0,25,29,5,9,0,0,26,29,3,
-        2,1,0,27,29,5,5,0,0,28,23,1,0,0,0,28,24,1,0,0,0,28,25,1,0,0,0,28,
-        26,1,0,0,0,28,27,1,0,0,0,29,5,1,0,0,0,3,9,18,28
+        4,1,13,53,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,1,0,5,0,12,8,0,
+        10,0,12,0,15,9,0,1,0,1,0,1,1,1,1,1,1,1,1,5,1,23,8,1,10,1,12,1,26,
+        9,1,3,1,28,8,1,1,1,1,1,1,2,1,2,1,2,1,2,1,3,1,3,5,3,38,8,3,10,3,12,
+        3,41,9,3,1,3,1,3,1,4,1,4,1,4,1,4,1,4,1,4,3,4,51,8,4,1,4,0,0,5,0,
+        2,4,6,8,0,2,1,0,11,12,1,0,9,12,56,0,13,1,0,0,0,2,18,1,0,0,0,4,31,
+        1,0,0,0,6,35,1,0,0,0,8,50,1,0,0,0,10,12,3,8,4,0,11,10,1,0,0,0,12,
+        15,1,0,0,0,13,11,1,0,0,0,13,14,1,0,0,0,14,16,1,0,0,0,15,13,1,0,0,
+        0,16,17,5,0,0,1,17,1,1,0,0,0,18,27,5,2,0,0,19,24,3,4,2,0,20,21,5,
+        13,0,0,21,23,3,4,2,0,22,20,1,0,0,0,23,26,1,0,0,0,24,22,1,0,0,0,24,
+        25,1,0,0,0,25,28,1,0,0,0,26,24,1,0,0,0,27,19,1,0,0,0,27,28,1,0,0,
+        0,28,29,1,0,0,0,29,30,5,3,0,0,30,3,1,0,0,0,31,32,7,0,0,0,32,33,5,
+        1,0,0,33,34,7,1,0,0,34,5,1,0,0,0,35,39,5,2,0,0,36,38,3,8,4,0,37,
+        36,1,0,0,0,38,41,1,0,0,0,39,37,1,0,0,0,39,40,1,0,0,0,40,42,1,0,0,
+        0,41,39,1,0,0,0,42,43,5,3,0,0,43,7,1,0,0,0,44,51,3,2,1,0,45,51,5,
+        11,0,0,46,51,5,9,0,0,47,51,5,10,0,0,48,51,3,6,3,0,49,51,5,6,0,0,
+        50,44,1,0,0,0,50,45,1,0,0,0,50,46,1,0,0,0,50,47,1,0,0,0,50,48,1,
+        0,0,0,50,49,1,0,0,0,51,9,1,0,0,0,5,13,24,27,39,50
     ]
 
 class diaParser ( Parser ):
@@ -32,29 +39,37 @@ class diaParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'{'", "'}'", "'''", "'\"'", "';'" ]
+    literalNames = [ "<INVALID>", "':'", "'{'", "'}'", "'''", "'\"'", "';'", 
+                     "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "<INVALID>", "<INVALID>", "','" ]
 
-    symbolicNames = [ "<INVALID>", "LPAREN", "RPAREN", "SINGLE_QUOTE", "DOUBLE_QUOTE", 
-                      "SEMICOLON", "LINEBREAK", "WS", "STRING_SINGLE", "STRING_DOUBLE", 
-                      "CODE" ]
+    symbolicNames = [ "<INVALID>", "<INVALID>", "LPAREN", "RPAREN", "SINGLE_QUOTE", 
+                      "DOUBLE_QUOTE", "SEMICOLON", "LINEBREAK", "WS", "STRING_SINGLE", 
+                      "STRING_DOUBLE", "CODE", "NUMBER", "COMMA" ]
 
     RULE_rule_set = 0
-    RULE_nestedStatements = 1
-    RULE_statements = 2
+    RULE_dictionary = 1
+    RULE_key_value = 2
+    RULE_nestedStatements = 3
+    RULE_statements = 4
 
-    ruleNames =  [ "rule_set", "nestedStatements", "statements" ]
+    ruleNames =  [ "rule_set", "dictionary", "key_value", "nestedStatements", 
+                   "statements" ]
 
     EOF = Token.EOF
-    LPAREN=1
-    RPAREN=2
-    SINGLE_QUOTE=3
-    DOUBLE_QUOTE=4
-    SEMICOLON=5
-    LINEBREAK=6
-    WS=7
-    STRING_SINGLE=8
-    STRING_DOUBLE=9
-    CODE=10
+    T__0=1
+    LPAREN=2
+    RPAREN=3
+    SINGLE_QUOTE=4
+    DOUBLE_QUOTE=5
+    SEMICOLON=6
+    LINEBREAK=7
+    WS=8
+    STRING_SINGLE=9
+    STRING_DOUBLE=10
+    CODE=11
+    NUMBER=12
+    COMMA=13
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -103,18 +118,169 @@ class diaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 9
+            self.state = 13
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 1826) != 0):
-                self.state = 6
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 3652) != 0):
+                self.state = 10
                 self.statements()
-                self.state = 11
+                self.state = 15
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 12
+            self.state = 16
             self.match(diaParser.EOF)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class DictionaryContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def LPAREN(self):
+            return self.getToken(diaParser.LPAREN, 0)
+
+        def RPAREN(self):
+            return self.getToken(diaParser.RPAREN, 0)
+
+        def key_value(self, i:int=None):
+            if i is None:
+                return self.getTypedRuleContexts(diaParser.Key_valueContext)
+            else:
+                return self.getTypedRuleContext(diaParser.Key_valueContext,i)
+
+
+        def COMMA(self, i:int=None):
+            if i is None:
+                return self.getTokens(diaParser.COMMA)
+            else:
+                return self.getToken(diaParser.COMMA, i)
+
+        def getRuleIndex(self):
+            return diaParser.RULE_dictionary
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterDictionary" ):
+                listener.enterDictionary(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitDictionary" ):
+                listener.exitDictionary(self)
+
+
+
+
+    def dictionary(self):
+
+        localctx = diaParser.DictionaryContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 2, self.RULE_dictionary)
+        self._la = 0 # Token type
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 18
+            self.match(diaParser.LPAREN)
+            self.state = 27
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            if _la==11 or _la==12:
+                self.state = 19
+                self.key_value()
+                self.state = 24
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+                while _la==13:
+                    self.state = 20
+                    self.match(diaParser.COMMA)
+                    self.state = 21
+                    self.key_value()
+                    self.state = 26
+                    self._errHandler.sync(self)
+                    _la = self._input.LA(1)
+
+
+
+            self.state = 29
+            self.match(diaParser.RPAREN)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class Key_valueContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def CODE(self, i:int=None):
+            if i is None:
+                return self.getTokens(diaParser.CODE)
+            else:
+                return self.getToken(diaParser.CODE, i)
+
+        def NUMBER(self, i:int=None):
+            if i is None:
+                return self.getTokens(diaParser.NUMBER)
+            else:
+                return self.getToken(diaParser.NUMBER, i)
+
+        def STRING_SINGLE(self):
+            return self.getToken(diaParser.STRING_SINGLE, 0)
+
+        def STRING_DOUBLE(self):
+            return self.getToken(diaParser.STRING_DOUBLE, 0)
+
+        def getRuleIndex(self):
+            return diaParser.RULE_key_value
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterKey_value" ):
+                listener.enterKey_value(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitKey_value" ):
+                listener.exitKey_value(self)
+
+
+
+
+    def key_value(self):
+
+        localctx = diaParser.Key_valueContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 4, self.RULE_key_value)
+        self._la = 0 # Token type
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 31
+            _la = self._input.LA(1)
+            if not(_la==11 or _la==12):
+                self._errHandler.recoverInline(self)
+            else:
+                self._errHandler.reportMatch(self)
+                self.consume()
+            self.state = 32
+            self.match(diaParser.T__0)
+            self.state = 33
+            _la = self._input.LA(1)
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 7680) != 0)):
+                self._errHandler.recoverInline(self)
+            else:
+                self._errHandler.reportMatch(self)
+                self.consume()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -161,23 +327,23 @@ class diaParser ( Parser ):
     def nestedStatements(self):
 
         localctx = diaParser.NestedStatementsContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 2, self.RULE_nestedStatements)
+        self.enterRule(localctx, 6, self.RULE_nestedStatements)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 14
+            self.state = 35
             self.match(diaParser.LPAREN)
-            self.state = 18
+            self.state = 39
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 1826) != 0):
-                self.state = 15
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 3652) != 0):
+                self.state = 36
                 self.statements()
-                self.state = 20
+                self.state = 41
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 21
+            self.state = 42
             self.match(diaParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
@@ -194,6 +360,10 @@ class diaParser ( Parser ):
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
             super().__init__(parent, invokingState)
             self.parser = parser
+
+        def dictionary(self):
+            return self.getTypedRuleContext(diaParser.DictionaryContext,0)
+
 
         def CODE(self):
             return self.getToken(diaParser.CODE, 0)
@@ -228,38 +398,47 @@ class diaParser ( Parser ):
     def statements(self):
 
         localctx = diaParser.StatementsContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 4, self.RULE_statements)
+        self.enterRule(localctx, 8, self.RULE_statements)
         try:
-            self.state = 28
+            self.state = 50
             self._errHandler.sync(self)
-            token = self._input.LA(1)
-            if token in [10]:
+            la_ = self._interp.adaptivePredict(self._input,4,self._ctx)
+            if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 23
+                self.state = 44
+                self.dictionary()
+                pass
+
+            elif la_ == 2:
+                self.enterOuterAlt(localctx, 2)
+                self.state = 45
                 self.match(diaParser.CODE)
                 pass
-            elif token in [8]:
-                self.enterOuterAlt(localctx, 2)
-                self.state = 24
+
+            elif la_ == 3:
+                self.enterOuterAlt(localctx, 3)
+                self.state = 46
                 self.match(diaParser.STRING_SINGLE)
                 pass
-            elif token in [9]:
-                self.enterOuterAlt(localctx, 3)
-                self.state = 25
+
+            elif la_ == 4:
+                self.enterOuterAlt(localctx, 4)
+                self.state = 47
                 self.match(diaParser.STRING_DOUBLE)
                 pass
-            elif token in [1]:
-                self.enterOuterAlt(localctx, 4)
-                self.state = 26
+
+            elif la_ == 5:
+                self.enterOuterAlt(localctx, 5)
+                self.state = 48
                 self.nestedStatements()
                 pass
-            elif token in [5]:
-                self.enterOuterAlt(localctx, 5)
-                self.state = 27
+
+            elif la_ == 6:
+                self.enterOuterAlt(localctx, 6)
+                self.state = 49
                 self.match(diaParser.SEMICOLON)
                 pass
-            else:
-                raise NoViableAltException(self)
+
 
         except RecognitionException as re:
             localctx.exception = re

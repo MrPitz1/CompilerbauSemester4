@@ -1,4 +1,4 @@
-# Generated from dia.g4 by ANTLR 4.13.2
+# Generated from C:/Users/Julian/compilerbau-dhbw-4/CompilerbauSemester4/parser/dia.g4 by ANTLR 4.13.2
 from antlr4 import *
 if "." in __name__:
     from .diaParser import diaParser
@@ -14,6 +14,24 @@ class diaListener(ParseTreeListener):
 
     # Exit a parse tree produced by diaParser#rule_set.
     def exitRule_set(self, ctx:diaParser.Rule_setContext):
+        pass
+
+
+    # Enter a parse tree produced by diaParser#dictionary.
+    def enterDictionary(self, ctx:diaParser.DictionaryContext):
+        pass
+
+    # Exit a parse tree produced by diaParser#dictionary.
+    def exitDictionary(self, ctx:diaParser.DictionaryContext):
+        pass
+
+
+    # Enter a parse tree produced by diaParser#key_value.
+    def enterKey_value(self, ctx:diaParser.Key_valueContext):
+        pass
+
+    # Exit a parse tree produced by diaParser#key_value.
+    def exitKey_value(self, ctx:diaParser.Key_valueContext):
         pass
 
 
