@@ -1,11 +1,10 @@
-
-{'key1':'value',key1:'value',key2:{'key1':'value'}}
 def example_function(x):
     result = 0
     if x > 10:
         result += x
         for i in range(x):
             if i % 2 == 0:
+                {key1:'value',key2:'value'}
                 result += i
             else:
                 result -= i
@@ -15,6 +14,7 @@ def example_function(x):
             x += 1
             result += x
     return result
+
 def main():
     values = [5, 15, 25]
     results = []
@@ -22,6 +22,8 @@ def main():
         res = example_function(value)
         results.append(res)
         print("Result for {value} is {res}")
+
     print("All results computed.")
-if __name__ =="__main__":
+
+if __name__ == "__main__":
     main()

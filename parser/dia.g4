@@ -22,10 +22,29 @@ WS      : [ \t\u000C]+ -> skip;
 STRING_SINGLE : '\'' (~'\'')* '\'';
 STRING_DOUBLE : '"' (~'"')* '"';
 
+DICTIONARY : '{' (KEY ':' VALUE (',' KEY ':' VALUE)*)? '}';
+
+fragment KEY : [a-zA-Z0-9_]+           // Unquoted key
+             | '\'' [a-zA-Z0-9_]+ '\''  // Single-quoted key
+             | '"' [a-zA-Z0-9_]+ '"'  // Double-quoted key
+             ;
+
+fragment VALUE : '\'' (~['\\'] | '\\' . )* '\''  // Single-quoted string value
+               | '"' (~['\\'] | '\\' . )* '"'   // Double-quoted string value
+               | 'True'                         // Boolean True
+               | 'False'                        // Boolean False
+               | [a-zA-Z0-9_]+                  // Unquoted value (like a variable name)
+               | NUMBER                         // Numeric value
+               | '{' (KEY ':' VALUE (',' KEY ':' VALUE)*)? '}'
+               ;
+
+// Fragment for numbers (integers and floats)
+fragment NUMBER : [0-9]+ ('.' [0-9]+)?;
+
 // Define token for CODE, which is any sequence of characters except `{`, `}`, or line breaks
 // Make sure CODE comes after STRING_SINGLE and STRING_DOUBLE to avoid conflict
 CODE    : ~[{}\r\n'";]+;
 
 // Parser rules
 nestedStatements : LPAREN statements* RPAREN;
-statements       : CODE | STRING_SINGLE | STRING_DOUBLE | nestedStatements | SEMICOLON;
+statements       : CODE | STRING_SINGLE | STRING_DOUBLE | DICTIONARY | nestedStatements | SEMICOLON;
