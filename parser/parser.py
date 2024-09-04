@@ -8,19 +8,20 @@ class MyCustomListener(diaListener):
     def __init__(self):
         super().__init__()
         self.output = ""
-        self.indent_level = 0  # Initialize the indentation level
-        self.start_of_line = True  # Initialize the line start flag
+        self.indent_level = 0 # Initialize the indentation level
+        self.start_of_line = True # Initialize the line start flag
 
     def enterNestedStatements(self, ctx):
         """
         Handle the start of a block by increasing the indentation level.
         """
-        self.indent_level += 1  # Increase the indentation level
-        self.output += ':'
-        self.start_of_line = True  # Mark the start of a new line
+        self.indent_level += 1 # Increase the indentation level
+        self.output = self.output.rstrip()
+        self.output += ":\n"  
+        self.start_of_line = True # Mark the start of a new line
 
     def exitNestedStatements(self, ctx):
-        self.indent_level -= 1  # Decrease the indentation level
+        self.indent_level -= 1
 
     def enterStatements(self, ctx):
         indent = "    " * self.indent_level
@@ -28,23 +29,22 @@ class MyCustomListener(diaListener):
             code_segment = ctx.CODE().getText().strip()
             if code_segment:
                 if self.start_of_line:
-                    self.output += f"{indent}{code_segment}"  # Add code segment with current indentation
+                    self.output += f"{indent}{code_segment}" # Add code segment with current indentation
                     self.start_of_line = False
                 else:
-                    self.output += f"{code_segment}"
+                    self.output += f" {code_segment}"
         elif ctx.STRING_SINGLE():
             string_single_segment = ctx.STRING_SINGLE().getText().strip()
-            if string_single_segment:
-                self.output += f"{string_single_segment}"
+            self.output += f"{string_single_segment}"
         elif ctx.STRING_DOUBLE():
             string_double_segment = ctx.STRING_DOUBLE().getText().strip()
-            if string_double_segment:
-                self.output += f"{string_double_segment}"
+            self.output += f"{string_double_segment}"
 
     def exitStatements(self, ctx):
-        if ctx.LINEBREAK():
-            self.output += "\n"  # Add a line break
-            self.start_of_line = True  # Mark the start of a new line
+        if ctx.SEMICOLON():
+            self.output = self.output.rstrip(';')  # Remove ; from the output
+            self.output += "\n"  # Break to new line
+            self.start_of_line = True
 
 def parse_file_with_listener(file_path, output_file_path):
     try:
