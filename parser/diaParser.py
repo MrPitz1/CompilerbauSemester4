@@ -10,23 +10,22 @@ else:
 
 def serializedATN():
     return [
-        4,1,13,53,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,1,0,5,0,12,8,0,
+        4,1,13,51,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,1,0,5,0,12,8,0,
         10,0,12,0,15,9,0,1,0,1,0,1,1,1,1,1,1,1,1,5,1,23,8,1,10,1,12,1,26,
-        9,1,3,1,28,8,1,1,1,1,1,1,2,1,2,1,2,1,2,1,3,1,3,5,3,38,8,3,10,3,12,
-        3,41,9,3,1,3,1,3,1,4,1,4,1,4,1,4,1,4,1,4,3,4,51,8,4,1,4,0,0,5,0,
-        2,4,6,8,0,2,1,0,11,12,1,0,9,12,56,0,13,1,0,0,0,2,18,1,0,0,0,4,31,
-        1,0,0,0,6,35,1,0,0,0,8,50,1,0,0,0,10,12,3,8,4,0,11,10,1,0,0,0,12,
-        15,1,0,0,0,13,11,1,0,0,0,13,14,1,0,0,0,14,16,1,0,0,0,15,13,1,0,0,
-        0,16,17,5,0,0,1,17,1,1,0,0,0,18,27,5,2,0,0,19,24,3,4,2,0,20,21,5,
-        13,0,0,21,23,3,4,2,0,22,20,1,0,0,0,23,26,1,0,0,0,24,22,1,0,0,0,24,
-        25,1,0,0,0,25,28,1,0,0,0,26,24,1,0,0,0,27,19,1,0,0,0,27,28,1,0,0,
-        0,28,29,1,0,0,0,29,30,5,3,0,0,30,3,1,0,0,0,31,32,7,0,0,0,32,33,5,
-        1,0,0,33,34,7,1,0,0,34,5,1,0,0,0,35,39,5,2,0,0,36,38,3,8,4,0,37,
-        36,1,0,0,0,38,41,1,0,0,0,39,37,1,0,0,0,39,40,1,0,0,0,40,42,1,0,0,
-        0,41,39,1,0,0,0,42,43,5,3,0,0,43,7,1,0,0,0,44,51,3,2,1,0,45,51,5,
-        11,0,0,46,51,5,9,0,0,47,51,5,10,0,0,48,51,3,6,3,0,49,51,5,6,0,0,
-        50,44,1,0,0,0,50,45,1,0,0,0,50,46,1,0,0,0,50,47,1,0,0,0,50,48,1,
-        0,0,0,50,49,1,0,0,0,51,9,1,0,0,0,5,13,24,27,39,50
+        9,1,1,1,1,1,1,2,1,2,1,2,1,2,1,3,1,3,5,3,36,8,3,10,3,12,3,39,9,3,
+        1,3,1,3,1,4,1,4,1,4,1,4,1,4,1,4,3,4,49,8,4,1,4,0,0,5,0,2,4,6,8,0,
+        2,1,0,11,12,1,0,9,12,53,0,13,1,0,0,0,2,18,1,0,0,0,4,29,1,0,0,0,6,
+        33,1,0,0,0,8,48,1,0,0,0,10,12,3,8,4,0,11,10,1,0,0,0,12,15,1,0,0,
+        0,13,11,1,0,0,0,13,14,1,0,0,0,14,16,1,0,0,0,15,13,1,0,0,0,16,17,
+        5,0,0,1,17,1,1,0,0,0,18,19,5,2,0,0,19,24,3,4,2,0,20,21,5,13,0,0,
+        21,23,3,4,2,0,22,20,1,0,0,0,23,26,1,0,0,0,24,22,1,0,0,0,24,25,1,
+        0,0,0,25,27,1,0,0,0,26,24,1,0,0,0,27,28,5,3,0,0,28,3,1,0,0,0,29,
+        30,7,0,0,0,30,31,5,1,0,0,31,32,7,1,0,0,32,5,1,0,0,0,33,37,5,2,0,
+        0,34,36,3,8,4,0,35,34,1,0,0,0,36,39,1,0,0,0,37,35,1,0,0,0,37,38,
+        1,0,0,0,38,40,1,0,0,0,39,37,1,0,0,0,40,41,5,3,0,0,41,7,1,0,0,0,42,
+        49,3,2,1,0,43,49,5,11,0,0,44,49,5,9,0,0,45,49,5,10,0,0,46,49,3,6,
+        3,0,47,49,5,6,0,0,48,42,1,0,0,0,48,43,1,0,0,0,48,44,1,0,0,0,48,45,
+        1,0,0,0,48,46,1,0,0,0,48,47,1,0,0,0,49,9,1,0,0,0,4,13,24,37,48
     ]
 
 class diaParser ( Parser ):
@@ -149,15 +148,15 @@ class diaParser ( Parser ):
         def LPAREN(self):
             return self.getToken(diaParser.LPAREN, 0)
 
-        def RPAREN(self):
-            return self.getToken(diaParser.RPAREN, 0)
-
         def key_value(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(diaParser.Key_valueContext)
             else:
                 return self.getTypedRuleContext(diaParser.Key_valueContext,i)
 
+
+        def RPAREN(self):
+            return self.getToken(diaParser.RPAREN, 0)
 
         def COMMA(self, i:int=None):
             if i is None:
@@ -188,27 +187,21 @@ class diaParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 18
             self.match(diaParser.LPAREN)
-            self.state = 27
+            self.state = 19
+            self.key_value()
+            self.state = 24
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==11 or _la==12:
-                self.state = 19
+            while _la==13:
+                self.state = 20
+                self.match(diaParser.COMMA)
+                self.state = 21
                 self.key_value()
-                self.state = 24
+                self.state = 26
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==13:
-                    self.state = 20
-                    self.match(diaParser.COMMA)
-                    self.state = 21
-                    self.key_value()
-                    self.state = 26
-                    self._errHandler.sync(self)
-                    _la = self._input.LA(1)
 
-
-
-            self.state = 29
+            self.state = 27
             self.match(diaParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
@@ -265,16 +258,16 @@ class diaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 31
+            self.state = 29
             _la = self._input.LA(1)
             if not(_la==11 or _la==12):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
                 self.consume()
-            self.state = 32
+            self.state = 30
             self.match(diaParser.T__0)
-            self.state = 33
+            self.state = 31
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 7680) != 0)):
                 self._errHandler.recoverInline(self)
@@ -331,19 +324,19 @@ class diaParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 35
+            self.state = 33
             self.match(diaParser.LPAREN)
-            self.state = 39
+            self.state = 37
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & 3652) != 0):
-                self.state = 36
+                self.state = 34
                 self.statements()
-                self.state = 41
+                self.state = 39
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 42
+            self.state = 40
             self.match(diaParser.RPAREN)
         except RecognitionException as re:
             localctx.exception = re
@@ -400,42 +393,42 @@ class diaParser ( Parser ):
         localctx = diaParser.StatementsContext(self, self._ctx, self.state)
         self.enterRule(localctx, 8, self.RULE_statements)
         try:
-            self.state = 50
+            self.state = 48
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,4,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,3,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 44
+                self.state = 42
                 self.dictionary()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 45
+                self.state = 43
                 self.match(diaParser.CODE)
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 46
+                self.state = 44
                 self.match(diaParser.STRING_SINGLE)
                 pass
 
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 47
+                self.state = 45
                 self.match(diaParser.STRING_DOUBLE)
                 pass
 
             elif la_ == 5:
                 self.enterOuterAlt(localctx, 5)
-                self.state = 48
+                self.state = 46
                 self.nestedStatements()
                 pass
 
             elif la_ == 6:
                 self.enterOuterAlt(localctx, 6)
-                self.state = 49
+                self.state = 47
                 self.match(diaParser.SEMICOLON)
                 pass
 

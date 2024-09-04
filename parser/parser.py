@@ -8,17 +8,17 @@ class MyCustomListener(diaListener):
     def __init__(self):
         super().__init__()
         self.output = ""
-        self.indent_level = 0 # Initialize the indentation level
-        self.start_of_line = True # Initialize the line start flag
+        self.indent_level = 0  # Initialize the indentation level
+        self.start_of_line = True  # Initialize the line start flag
 
     def enterNestedStatements(self, ctx):
         """
         Handle the start of a block by increasing the indentation level.
         """
-        self.indent_level += 1 # Increase the indentation level
+        self.indent_level += 1  # Increase the indentation level
         self.output = self.output.rstrip()
-        self.output += ":\n"  
-        self.start_of_line = True # Mark the start of a new line
+        self.output += ":\n"
+        self.start_of_line = True  # Mark the start of a new line
 
     def exitNestedStatements(self, ctx):
         self.indent_level -= 1
@@ -29,7 +29,7 @@ class MyCustomListener(diaListener):
             code_segment = ctx.CODE().getText().strip()
             if code_segment:
                 if self.start_of_line:
-                    self.output += f"{indent}{code_segment}" # Add code segment with current indentation
+                    self.output += f"{indent}{code_segment}"  # Add code segment with current indentation
                     self.start_of_line = False
                 else:
                     self.output += f"{code_segment}"
@@ -39,6 +39,29 @@ class MyCustomListener(diaListener):
         elif ctx.STRING_DOUBLE():
             string_double_segment = ctx.STRING_DOUBLE().getText().strip()
             self.output += f"{string_double_segment}"
+        elif ctx.dictionary():
+            # Call the method to format dictionary correctly
+            self.enterDictionary(ctx.dictionary())
+
+    def enterDictionary(self, ctx):
+        """
+        Handle dictionary formatting.
+        """
+        self.output += "{"
+        key_values = ctx.key_value()
+
+        for i, kv_pair in enumerate(key_values):
+            key = kv_pair.CODE(0).getText() if kv_pair.CODE(0) else kv_pair.NUMBER(0).getText()
+            value = kv_pair.CODE(1).getText() if kv_pair.CODE(1) else kv_pair.NUMBER(1).getText()
+            # Append key-value pair to output
+            self.output += f"{key}:{value}"
+
+            # Add comma for all except the last pair
+            if i < len(key_values) - 1:
+                self.output += ", "
+
+        # Close the dictionary
+        self.output += "}"
 
     def exitStatements(self, ctx):
         if ctx.SEMICOLON():

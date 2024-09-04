@@ -30,11 +30,12 @@ CODE    : ~[{}\r\n'";]+;
 NUMBER : [0-9]+;
 COMMA  : ',';
 
-// Update the dictionary rule to properly recognize key-value pairs
-dictionary : LPAREN (key_value (COMMA key_value)*)? RPAREN;
+// Define dictionary rule to properly recognize key-value pairs
+dictionary : LPAREN key_value (COMMA key_value)* RPAREN;
 
+// Define the key-value pairs in the dictionary
 key_value : (CODE | NUMBER) ':' (CODE | NUMBER | STRING_SINGLE | STRING_DOUBLE);
 
-// Parser rules
+// Parser rules for nested statements
 nestedStatements : LPAREN statements* RPAREN;
 statements       : dictionary | CODE | STRING_SINGLE | STRING_DOUBLE | nestedStatements | SEMICOLON;

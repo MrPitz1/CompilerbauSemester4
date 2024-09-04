@@ -1,5 +1,7 @@
 def example_function(x):
     result = 0
+    a =:
+        1:8,2:4
     if x > 10:
         result += x
         for i in range(x):
@@ -21,6 +23,5 @@ def main():
         results.append(res)
         print("Result for {value} is {res}")
     print("All results computed.")
-    a =:
-        1:8,2:4if __name__ =="__main__":
+if __name__ =="__main__":
     main()
