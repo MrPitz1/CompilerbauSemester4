@@ -1,3 +1,4 @@
+{'key1':'value',key1:'value',key2:{'key1':'value'}}
 def example_function(x) {
     result = 0;
     if x > 10 {
