@@ -11,8 +11,9 @@ RPAREN  : '}';
 SINGLE_QUOTE : '\'';
 DOUBLE_QUOTE : '"';
 
-// Define tokens for line breaks
-LINEBREAK : [\r\n]+;
+// Define tokens for end of line
+SEMICOLON : ';';
+LINEBREAK : [\r\n]+ -> skip;
 
 // Define tokens for other whitespace characters and skip them
 WS      : [ \t\u000C]+ -> skip;
@@ -23,8 +24,8 @@ STRING_DOUBLE : '"' (~'"')* '"';
 
 // Define token for CODE, which is any sequence of characters except `{`, `}`, or line breaks
 // Make sure CODE comes after STRING_SINGLE and STRING_DOUBLE to avoid conflict
-CODE    : ~[{}\r\n'"]+;
+CODE    : ~[{}\r\n'";]+;
 
 // Parser rules
 nestedStatements : LPAREN statements* RPAREN;
-statements       : CODE | STRING_SINGLE | STRING_DOUBLE | nestedStatements | LINEBREAK;
+statements       : CODE | STRING_SINGLE | STRING_DOUBLE | nestedStatements | SEMICOLON;
