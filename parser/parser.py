@@ -32,7 +32,7 @@ class MyCustomListener(diaListener):
                     self.output += f"{indent}{code_segment}" # Add code segment with current indentation
                     self.start_of_line = False
                 else:
-                    self.output += f" {code_segment}"
+                    self.output += f"{code_segment}"
         elif ctx.STRING_SINGLE():
             string_single_segment = ctx.STRING_SINGLE().getText().strip()
             self.output += f"{string_single_segment}"
