@@ -26,6 +26,11 @@ STRING_DOUBLE : '"' (~'"')* '"';
 // Make sure CODE comes after STRING_SINGLE and STRING_DOUBLE to avoid conflict
 CODE    : ~[{}\r\n'";]+;
 
+// Add a rule for dictionary parsing
+dictionary : LPAREN (key_value (',' key_value)*)? RPAREN;
+
+key_value : CODE ':' (CODE | STRING_SINGLE | STRING_DOUBLE);
+
 // Parser rules
 nestedStatements : LPAREN statements* RPAREN;
-statements       : CODE | STRING_SINGLE | STRING_DOUBLE | nestedStatements | SEMICOLON;
+statements       : CODE | STRING_SINGLE | STRING_DOUBLE | nestedStatements | dictionary | SEMICOLON;
