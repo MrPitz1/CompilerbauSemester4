@@ -7,91 +7,112 @@ import re
 
 class MyCustomVisitor(diaVisitor):
     def __init__(self):
+        # Initialize output, indentation level, and line start flag
         self.output = ""
-        self.indent_level = 0  # Initialize the indentation level
-        self.start_of_line = True  # Initialize the line start flag
+        self.indent_level = 0
+        self.start_of_line = True
+
     def visitCustomDict(self, ctx: diaParser.NestedStatementsContext):
+        """
+        Handles custom dictionary-like structures in nested statements.
+        """
         for child in ctx.getChildren():
             if isinstance(child, RuleContext):
                 self.output += child.getText().strip()
-            if isinstance(child, TerminalNode):
+            elif isinstance(child, TerminalNode):
                 self.output += child.getText().strip()
+
     def visitNestedStatements(self, ctx: diaParser.NestedStatementsContext):
         """
-        Handle the start of a block by increasing the indentation level.
+        Handles nested statements, adjusting indentation and calling visitCustomDict if a dictionary is detected.
         """
         is_dict = False
-        skip = False
-        for i, child in enumerate(ctx.getChildren()):
+
+        # Check if any child contains a colon which might indicate a dictionary
+        for child in ctx.getChildren():
             if isinstance(child, RuleContext):
-                if ':' in child.getText() and child.getText()[0] != '{':
+                if ':' in child.getText() and not child.getText().startswith('{'):
                     is_dict = True
+
         if is_dict:
-            self.visitCustomDict(ctx)   
+            # Visit custom dictionary if identified
+            self.visitCustomDict(ctx)
         else:
-            self.indent_level += 1  # Increase the indentation level
+            # Handle nested statements with adjusted indentation
+            self.indent_level += 1
             self.output = self.output.rstrip()
             self.output += ":\n"
-            self.start_of_line = True  # Mark the start of a new line
+            self.start_of_line = True
+
+            # Visit all children of the current context
             for child in ctx.getChildren():
                 self.visit(child)
-            self.indent_level -= 1  # Decrease the indentation level after processing
-    
+
+            self.indent_level -= 1
+
     def visitStatements(self, ctx: diaParser.StatementsContext):
+        """
+        Handles different types of statements, including CODE, STRING_SINGLE, and STRING_DOUBLE.
+        """
         indent = "    " * self.indent_level
 
         if ctx.CODE():
-            code_segment = ctx.CODE().getText().strip()
-            if code_segment:
+            code_text = ctx.CODE().getText().strip()
+            if code_text:
                 if self.start_of_line:
-                    self.output += f"{indent}{code_segment}"  # Add code segment with current indentation
+                    self.output += f"{indent}{code_text}"
                     self.start_of_line = False
                 else:
-                    self.output += f"{code_segment}"
+                    self.output += f"{code_text}"
         elif ctx.STRING_SINGLE():
-            string_single_segment = ctx.STRING_SINGLE().getText().strip()
-            self.output += f"{string_single_segment}"
+            string_single_text = ctx.STRING_SINGLE().getText().strip()
+            self.output += f"{string_single_text}"
         elif ctx.STRING_DOUBLE():
-            string_double_segment = ctx.STRING_DOUBLE().getText().strip()
-            self.output += f"{string_double_segment}"
+            string_double_text = ctx.STRING_DOUBLE().getText().strip()
+            self.output += f"{string_double_text}"
 
-        # Also process children
+        # Process children nodes
         for child in ctx.getChildren():
             if not (child == ctx.CODE() or child == ctx.STRING_SINGLE() or child == ctx.STRING_DOUBLE()):
                 self.visit(child)
 
         if ctx.SEMICOLON():
-            self.output = self.output.rstrip(';')  # Remove ; from the output
-            self.output += "\n"  # Break to new line
+            self.output = self.output.rstrip(';')  # Remove trailing semicolon
+            self.output += "\n"  # Add newline
             self.start_of_line = True
 
 
-def parse_file_with_visitor(file_path, output_file_path):
+def parse_file_with_visitor(input_file_path, output_file_path):
+    """
+    Parse the input file using the custom visitor and save the output to a file.
+    """
     try:
-        with open(file_path, 'r') as file:
+        # Read input file
+        with open(input_file_path, 'r') as file:
             file_content = file.read()
 
+        # Set up the lexer, parser, and parse tree
         input_stream = InputStream(file_content)
         lexer = diaLexer(input_stream)
         token_stream = CommonTokenStream(lexer)
         parser = diaParser(token_stream)
-        
-        # Start parsing from the `rule_set` rule
-        tree = parser.rule_set()
-        print(tree.toStringTree(recog=parser))
-        # Create the visitor and visit the parse tree
+        tree = parser.rule_set()  # Start parsing from the rule_set rule
+
         print('Starting parse...')
+
+        # Create and use the visitor
         visitor = MyCustomVisitor()
         visitor.visit(tree)
+
         print('Parsing completed.')
 
-        # Write the output to a file
+        # Save the output to a file
         with open(output_file_path, 'w') as output_file:
             output_file.write(visitor.output)
         
         print(f"Output saved to {output_file_path}")
     except FileNotFoundError:
-        print(f"File '{file_path}' not found.")
+        print(f"File '{input_file_path}' not found.")
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 
@@ -100,6 +121,6 @@ if __name__ == "__main__":
         print('Usage: python3 parser.py {input_filename} {output_filename}')
         sys.exit(1)
 
-    file_path = sys.argv[1]
+    input_file_path = sys.argv[1]
     output_file_path = sys.argv[2]
-    parse_file_with_visitor(file_path, output_file_path)
+    parse_file_with_visitor(input_file_path, output_file_path)
