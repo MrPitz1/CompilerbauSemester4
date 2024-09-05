@@ -3,46 +3,51 @@ from diaParser import diaParser
 from diaVisitor import diaVisitor
 from antlr4 import *
 import sys
+import re
 
 class MyCustomVisitor(diaVisitor):
     def __init__(self):
         self.output = ""
         self.indent_level = 0  # Initialize the indentation level
         self.start_of_line = True  # Initialize the line start flag
-
+    def visitCustomDict(self, ctx: diaParser.NestedStatementsContext):
+        for child in ctx.getChildren():
+            if isinstance(child, RuleContext):
+                self.output += child.getText().strip()
+            if isinstance(child, TerminalNode):
+                self.output += child.getText().strip()
     def visitNestedStatements(self, ctx: diaParser.NestedStatementsContext):
         """
         Handle the start of a block by increasing the indentation level.
         """
-        self.indent_level += 1  # Increase the indentation level
-        self.output = self.output.rstrip()
-        self.output += ":\n"
-        self.start_of_line = True  # Mark the start of a new line
-
-        # Visit each child node in nestedStatements
-        for child in ctx.getChildren():
-            if isinstance(child, diaParser.NestedStatementsContext):
-                continue
-            self.visit(child)
-        
-        self.indent_level -= 1  # Decrease the indentation level after processing
-
+        is_dict = False
+        skip = False
+        for i, child in enumerate(ctx.getChildren()):
+            if isinstance(child, RuleContext):
+                if ':' in child.getText() and child.getText()[0] != '{':
+                    is_dict = True
+        if is_dict:
+            self.visitCustomDict(ctx)   
+        else:
+            self.indent_level += 1  # Increase the indentation level
+            self.output = self.output.rstrip()
+            self.output += ":\n"
+            self.start_of_line = True  # Mark the start of a new line
+            for child in ctx.getChildren():
+                self.visit(child)
+            self.indent_level -= 1  # Decrease the indentation level after processing
+    
     def visitStatements(self, ctx: diaParser.StatementsContext):
         indent = "    " * self.indent_level
 
         if ctx.CODE():
             code_segment = ctx.CODE().getText().strip()
-            if ':' in code_segment:
-                # Treat as a dictionary entry
-                self.handleDictionary(ctx)
-            else:
-                # Regular code segment
-                if code_segment:
-                    if self.start_of_line:
-                        self.output += f"{indent}{code_segment}"  # Add code segment with current indentation
-                        self.start_of_line = False
-                    else:
-                        self.output += f"{code_segment}"
+            if code_segment:
+                if self.start_of_line:
+                    self.output += f"{indent}{code_segment}"  # Add code segment with current indentation
+                    self.start_of_line = False
+                else:
+                    self.output += f"{code_segment}"
         elif ctx.STRING_SINGLE():
             string_single_segment = ctx.STRING_SINGLE().getText().strip()
             self.output += f"{string_single_segment}"
@@ -60,35 +65,6 @@ class MyCustomVisitor(diaVisitor):
             self.output += "\n"  # Break to new line
             self.start_of_line = True
 
-    def handleDictionary(self, ctx):
-        """
-        Handle dictionary logic.
-        """
-        dict_entries = []
-        inside_dict = False
-        for child in ctx.getChildren():
-            if isinstance(child, TerminalNode):
-                text = child.getText().strip()
-                if ':' in text:
-                    # Split key and value for the dictionary entry
-                    key_value = text.split(':')
-                    if len(key_value) == 2:
-                        key = key_value[0].strip()
-                        value = key_value[1].strip()
-                        dict_entries.append(f"'{key}': {value}") 
-
-        if dict_entries:
-            dict_output = "{" + ", ".join(dict_entries) + "}"
-            i = len(self.output)
-            print(i)
-            while i > -1:
-                if self.output[i-1] == ':':
-                    i-=1
-                    break
-                i-=1
-            print(i)
-            self.output = self.output[:i]
-            self.output += f" {dict_output}"
 
 def parse_file_with_visitor(file_path, output_file_path):
     try:
@@ -99,10 +75,10 @@ def parse_file_with_visitor(file_path, output_file_path):
         lexer = diaLexer(input_stream)
         token_stream = CommonTokenStream(lexer)
         parser = diaParser(token_stream)
-
+        
         # Start parsing from the `rule_set` rule
         tree = parser.rule_set()
-
+        print(tree.toStringTree(recog=parser))
         # Create the visitor and visit the parse tree
         print('Starting parse...')
         visitor = MyCustomVisitor()

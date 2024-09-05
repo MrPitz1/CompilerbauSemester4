@@ -7,10 +7,6 @@ rule_set : statements* EOF;
 LPAREN  : '{';
 RPAREN  : '}';
 
-// Define tokens for quotes
-SINGLE_QUOTE : '\'';
-DOUBLE_QUOTE : '"';
-
 // Define tokens for end of line
 SEMICOLON : ';';
 LINEBREAK : [\r\n]+ -> skip;
