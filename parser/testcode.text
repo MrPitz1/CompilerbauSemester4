@@ -29,6 +29,7 @@ def main() {
         print("Result for {value} is {res}");
     }
     print("All results computed.");
+    dict = {for x in b: 'test': 5, 5: 'test', {5: { 5: 3}}};
 }
 
 if __name__ == "__main__" {

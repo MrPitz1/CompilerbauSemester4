@@ -16,15 +16,16 @@ def example_function(x):
 def main():
     values = [5, 15, 25]
     results = []
-    b ={ 5: 3}
+    b ={5: 3}
     for value in values:
         res = example_function(value)
         results.append(res)
         print("Result for {value} is {res}")
     print("All results computed.")
+    dict ={for x in b:'test': 5, 5:'test',{5: { 5: 3}}}
 if __name__ =="__main__":
     main()
-dict ={ for x in b: 'test' : 5, 5: 'test' , {5: { 5: 3}}}
+dict ={for x in b:'test': 5, 5:'test',{5: { 5: 3}}}
 def test:
     def x:
         def b:
