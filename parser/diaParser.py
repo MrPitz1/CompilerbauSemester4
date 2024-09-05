@@ -1,4 +1,4 @@
-# Generated from dia.g4 by ANTLR 4.13.2
+# Generated from ./dia.g4 by ANTLR 4.13.2
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -93,6 +93,12 @@ class diaParser ( Parser ):
             if hasattr( listener, "exitRule_set" ):
                 listener.exitRule_set(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitRule_set" ):
+                return visitor.visitRule_set(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -154,6 +160,12 @@ class diaParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitNestedStatements" ):
                 listener.exitNestedStatements(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNestedStatements" ):
+                return visitor.visitNestedStatements(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -221,6 +233,12 @@ class diaParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitStatements" ):
                 listener.exitStatements(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitStatements" ):
+                return visitor.visitStatements(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
