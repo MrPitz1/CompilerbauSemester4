@@ -11,7 +11,11 @@ RPAREN  : '}';
 SINGLE_QUOTE : '\'';
 DOUBLE_QUOTE : '"';
 
-// Define tokens for end of line
+// Define tokens for colon (used in key-value pairs in dictionaries)
+COLON : ':';
+EQUALS : '=';
+
+// Define tokens for end of line (semicolon is used to identify line breaks)
 SEMICOLON : ';';
 LINEBREAK : [\r\n]+ -> skip;
 
@@ -22,10 +26,29 @@ WS      : [ \t\u000C]+ -> skip;
 STRING_SINGLE : '\'' (~'\'')* '\'';
 STRING_DOUBLE : '"' (~'"')* '"';
 
-// Define token for CODE, which is any sequence of characters except `{`, `}`, or line breaks
+// Define token for CODE, which is any sequence of characters except `{`, `}`, `:`, or line breaks
 // Make sure CODE comes after STRING_SINGLE and STRING_DOUBLE to avoid conflict
-CODE    : ~[{}\r\n'";]+;
+CODE    : ~[{}\r\n:;'"]+;
 
 // Parser rules
-nestedStatements : LPAREN statements* RPAREN;
-statements       : CODE | STRING_SINGLE | STRING_DOUBLE | nestedStatements | SEMICOLON;
+dictionary       : (VARIABLE)? LPAREN pair RPAREN;  // Handle multiple pairs inside the dictionary
+pair             : (dicstatements COLON dicstatements)+;
+VARIABLE         : CODE* EQUALS;
+
+nestedStatements : LPAREN (dictionary | nesStatements)* RPAREN;
+
+// Main statements rule (no standalone colons allowed)
+statements       : CODE 
+                 | STRING_SINGLE 
+                 | STRING_DOUBLE 
+                 | nestedStatements
+                 | dictionary
+                 | SEMICOLON;
+
+nesStatements    : CODE 
+                 | STRING_SINGLE 
+                 | STRING_DOUBLE 
+                 | nestedStatements
+                 | SEMICOLON;
+
+dicstatements    : CODE | STRING_SINGLE | STRING_DOUBLE;

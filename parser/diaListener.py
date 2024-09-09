@@ -17,6 +17,24 @@ class diaListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by diaParser#dictionary.
+    def enterDictionary(self, ctx:diaParser.DictionaryContext):
+        pass
+
+    # Exit a parse tree produced by diaParser#dictionary.
+    def exitDictionary(self, ctx:diaParser.DictionaryContext):
+        pass
+
+
+    # Enter a parse tree produced by diaParser#pair.
+    def enterPair(self, ctx:diaParser.PairContext):
+        pass
+
+    # Exit a parse tree produced by diaParser#pair.
+    def exitPair(self, ctx:diaParser.PairContext):
+        pass
+
+
     # Enter a parse tree produced by diaParser#nestedStatements.
     def enterNestedStatements(self, ctx:diaParser.NestedStatementsContext):
         pass
@@ -32,6 +50,24 @@ class diaListener(ParseTreeListener):
 
     # Exit a parse tree produced by diaParser#statements.
     def exitStatements(self, ctx:diaParser.StatementsContext):
+        pass
+
+
+    # Enter a parse tree produced by diaParser#nesStatements.
+    def enterNesStatements(self, ctx:diaParser.NesStatementsContext):
+        pass
+
+    # Exit a parse tree produced by diaParser#nesStatements.
+    def exitNesStatements(self, ctx:diaParser.NesStatementsContext):
+        pass
+
+
+    # Enter a parse tree produced by diaParser#dicstatements.
+    def enterDicstatements(self, ctx:diaParser.DicstatementsContext):
+        pass
+
+    # Exit a parse tree produced by diaParser#dicstatements.
+    def exitDicstatements(self, ctx:diaParser.DicstatementsContext):
         pass
 
 

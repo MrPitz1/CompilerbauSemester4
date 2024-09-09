@@ -1,33 +1,10 @@
-def example_function(x):
-    result = 0
-    if x > 10:
-        result += x
-        for i in range(x):
-            if i % 2 == 0:
-                result += i
-            else:
-                result -= i
-
-
+def factorial(n):
+    if n == 0:
+        return 1
     else:
-        result -= x
-        while x < 10:
-            x += 1
-            result += x
+        return n * factorial(n-1)
+        {"key1":"valu{res}:::1","key2":"42"}
 
-
-    return result
-
-def main():
-    values = [5, 15, 25]
-    results = []
-    for value in values:
-        res = example_function(value)
-        results.append(res)
-        print(f"Result for {value} is {res}"        )
-
-    print("All results computed."    )
-
-if __name__ =="__main__":
-    main()
-
+number = 5
+result = factorial(number)
+print("Die Fakultät von {number} ist {result}")

@@ -7,6 +7,8 @@ def example_function(x) {
                 result += i;
             } else {
                 result -= i;
+                zahlen = [1, 2, 3, 4, 5];
+                {zahl: zahl ** 2 for zahl in zahlen}
             }
         }
     } else {
@@ -17,6 +19,12 @@ def example_function(x) {
         }
     }
     return result;
+    mein_dict = {
+    "name": "Anna",
+    "alter": 25,
+    "stadt": "Berlin"
+}
+
 }
 
 def main() {
@@ -25,6 +33,11 @@ def main() {
     for value in values {
         res = example_function(value);
         results.append(res);
+        
+{ 
+    "key1": "valu{res}:::1", 
+    "key2": "42" 
+}
         print("Result for {value} is {res}");
     }
     print("All results computed.");
@@ -33,3 +46,14 @@ def main() {
 if __name__ == "__main__" {
     main();
 }
+
+{ 
+    "key1": "value1", 
+    "key2": "42" 
+}
+{key: value for item in iterable}
+squares = {x: x**2 for x in range(1, 6)}
+even_squares = {x: x**2 for x in range(1, 11) if x % 2 == 0}
+combined = {x: y for x in range(1, 4) for y in ['A', 'B', 'C']}
+original = {'a': 1, 'b': 2, 'c': 3}
+inverted = {v: k for k, v in original.items()}
