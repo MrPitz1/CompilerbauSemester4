@@ -11,7 +11,7 @@ class MyCustomVisitor(diaVisitor):
         self.output = ""
         self.indent_level = 0
         self.start_of_line = True
-
+        self.isLambda = False
     def visitCustomDict(self, ctx: diaParser.NestedStatementsContext):
         """
         Handles custom dictionary-like structures in nested statements.
@@ -27,11 +27,17 @@ class MyCustomVisitor(diaVisitor):
         Handles nested statements, adjusting indentation and calling visitCustomDict if a dictionary is detected.
         """
         is_dict = False
-
+        if self.isLambda:
+            self.output += ':'
+            for child in ctx.getChildren():
+                self.visit(child)
+            return
         # Check if any child contains a colon which might indicate a dictionary
         for child in ctx.getChildren():
             if isinstance(child, RuleContext):
-                if ':' in child.getText() and not child.getText().startswith('{'):
+                text = child.getText()
+                print(text)
+                if ':' in text and not':=' in text and not (text.startswith('{') or text.startswith('"') or text.startswith("'")):
                     is_dict = True
 
         if is_dict:
@@ -55,9 +61,11 @@ class MyCustomVisitor(diaVisitor):
         Handles different types of statements, including CODE, STRING_SINGLE, and STRING_DOUBLE.
         """
         indent = "    " * self.indent_level
-
+        self.isLambda = False
         if ctx.CODE():
             code_text = ctx.CODE().getText().strip()
+            if "lambda" in code_text:
+                self.isLambda = True
             if code_text:
                 if self.start_of_line:
                     self.output += f"{indent}{code_text}"

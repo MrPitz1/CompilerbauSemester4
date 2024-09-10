@@ -1,32 +1,16 @@
-def example_function(x):
-    result = 0
-    if x > 10:
-        result += x
-        for i in range(x):
-            if i % 2 == 0:
-                result += i
-            else:
-                result -= i
-    else:
-        result -= x
-        while x < 10:
-            x += 1
-            result += x
-    return result
-def main():
-    values = [5, 15, 25]
-    results = []
-    b ={5: 3}
-    for value in values:
-        res = example_function(value)
-        results.append(res)
-        print("Result for {value} is {res}")
-    print("All results computed.")
-    dict ={for x in b:'test': 5, 5:'test',{5: { 5: 3}}}
-if __name__ =="__main__":
-    main()
-dict ={for x in b:'test': 5, 5:'test',{5: { 5: 3}}}
-def test:
-    def x:
-        def b:
-            b:
+def process_data(data):
+    config ={'version': 1.0,'options':{'verbose': True,'log_level': 'debug'},'filters': [lambda x: x * 2,lambda x: x + 5],'data':{'items': [{'name': 'item1', 'value': 10},{'name': 'item2', 'value': 20},{'name': 'item3', 'value': 30}            ],'settings': {'threshold': 15,'enabled': True}}}
+    if (threshold := config['data']['settings']['threshold']) and any(item['value'] > threshold for item in config['data']['items']):
+        print(f"Threshold ({threshold}) exceeded!")
+    filtered_data = [filter_func(x) for x in data for filter_func in config['filters']]
+    return filtered_data
+
+simple_dict ={'key1':'value1','key2': 100}
+nested_dict ={'level1':{'level2': {'level3': {'key': 'value'}}}}
+list_comp_dict ={'squares': [x ** 2 for x in range(5)],'even_numbers': [x for x in range(10) if x % 2 == 0]}
+data = [5, 10, 15, 20]
+processed_data = process_data(data)
+print(processed_data)
+print("Simple Dictionary:", simple_dict)
+print("Nested Dictionary:", nested_dict)
+print("List Comprehension Dictionary:", list_comp_dict)
