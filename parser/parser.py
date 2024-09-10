@@ -115,7 +115,7 @@ def parse_file_with_listener(file_path, output_file_path):
         walker = ParseTreeWalker()
         walker.walk(listener, tree)
         print('Parsing completed.')
-        print(tree.toStringTree())
+        print(tree.toStringTree(recog=parser))
 
         # Write the output to a file
         with open(output_file_path, 'w') as output_file:

@@ -32,7 +32,8 @@ CODE    : ~[{}\r\n:;'"]+;
 
 // Parser rules
 dictionary       : (VARIABLE)? LPAREN pair RPAREN;  // Handle multiple pairs inside the dictionary
-pair             : (dicstatements COLON dicstatements)+;
+nesteddictionary : (VARIABLE)? LPAREN pair RPAREN;
+pair             : (dicstatements COLON (dicstatements| nesteddictionary)+)+;
 VARIABLE         : CODE* EQUALS;
 
 nestedStatements : LPAREN (dictionary | nesStatements)* RPAREN;
