@@ -12,8 +12,10 @@ SINGLE_QUOTE : '\'';
 DOUBLE_QUOTE : '"';
 
 // Define tokens for colon (used in key-value pairs in dictionaries)
+Walros : ':=';
 COLON : ':';
 EQUALS : '=';
+COMMA : ',';
 
 // Define tokens for end of line (semicolon is used to identify line breaks)
 SEMICOLON : ';';
@@ -28,7 +30,7 @@ STRING_DOUBLE : '"' (~'"')* '"';
 
 // Define token for CODE, which is any sequence of characters except `{`, `}`, `:`, or line breaks
 // Make sure CODE comes after STRING_SINGLE and STRING_DOUBLE to avoid conflict
-CODE    : ~[{}\r\n:;'"]+;
+CODE    : ~[{}\r\n,:;'"]+;
 
 // Parser rules
 dictionary       : (VARIABLE)? LPAREN pair RPAREN;  // Handle multiple pairs inside the dictionary
@@ -44,12 +46,16 @@ statements       : CODE
                  | STRING_DOUBLE 
                  | nestedStatements
                  | dictionary
-                 | SEMICOLON;
+                 | SEMICOLON
+                 | COMMA
+                 | Walros;
 
 nesStatements    : CODE 
                  | STRING_SINGLE 
                  | STRING_DOUBLE 
                  | nestedStatements
-                 | SEMICOLON;
+                 | SEMICOLON
+                 | COMMA
+                 | Walros;
 
-dicstatements    : CODE | STRING_SINGLE | STRING_DOUBLE;
+dicstatements    : CODE | STRING_SINGLE | STRING_DOUBLE | COMMA;
