@@ -72,6 +72,8 @@ class MyCustomListener(diaListener):
             self.output = self.output.rstrip(';')  # Remove ; from the output
             self.output += "\n"  # Break to new line
             self.start_of_line = True
+        if ctx.DOLLAR():
+            self.output += ctx.DOLLAR().getText().replace('$', ':')
     def enterNesStatements(self, ctx):
         indent = "    " * self.indent_level
         if ctx.CODE():
@@ -94,6 +96,8 @@ class MyCustomListener(diaListener):
             self.output = self.output.rstrip(';')  # Remove ; from the output
             self.output += "\n"  # Break to new line
             self.start_of_line = True
+        if ctx.DOLLAR():
+            self.output += ctx.DOLLAR().getText().replace('$', ':')
 
 
 def parse_file_with_listener(file_path, output_file_path):

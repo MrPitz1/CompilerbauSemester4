@@ -16,6 +16,7 @@ Walros : ':=';
 COLON : ':';
 EQUALS : '=';
 COMMA : ',';
+DOLLAR : '$';
 
 // Define tokens for end of line (semicolon is used to identify line breaks)
 SEMICOLON : ';';
@@ -30,7 +31,7 @@ STRING_DOUBLE : '"' (~'"')* '"';
 
 // Define token for CODE, which is any sequence of characters except `{`, `}`, `:`, or line breaks
 // Make sure CODE comes after STRING_SINGLE and STRING_DOUBLE to avoid conflict
-CODE    : ~[{}\r\n,:;'"]+;
+CODE    : ~[{}\r\n,$:;'"]+;
 
 // Parser rules
 dictionary       : (VARIABLE)? LPAREN pair RPAREN;  // Handle multiple pairs inside the dictionary
@@ -48,7 +49,7 @@ statements       : CODE
                  | dictionary
                  | SEMICOLON
                  | COMMA
-                 | Walros;
+                 | DOLLAR;
 
 nesStatements    : CODE 
                  | STRING_SINGLE 
@@ -56,6 +57,6 @@ nesStatements    : CODE
                  | nestedStatements
                  | SEMICOLON
                  | COMMA
-                 | Walros;
+                 | DOLLAR;
 
 dicstatements    : CODE | STRING_SINGLE | STRING_DOUBLE | COMMA;

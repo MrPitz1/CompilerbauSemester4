@@ -16,7 +16,7 @@ def serializedATN():
         3,43,8,3,11,3,12,3,44,4,3,47,8,3,11,3,12,3,48,1,4,1,4,1,4,5,4,54,
         8,4,10,4,12,4,57,9,4,1,4,1,4,1,5,1,5,1,5,1,5,1,5,1,5,1,5,1,5,3,5,
         69,8,5,1,6,1,6,1,6,1,6,1,6,1,6,1,6,3,6,78,8,6,1,7,1,7,1,7,0,0,8,
-        0,2,4,6,8,10,12,14,0,1,2,0,8,8,12,14,94,0,19,1,0,0,0,2,25,1,0,0,
+        0,2,4,6,8,10,12,14,0,1,2,0,8,8,13,15,94,0,19,1,0,0,0,2,25,1,0,0,
         0,4,32,1,0,0,0,6,46,1,0,0,0,8,50,1,0,0,0,10,68,1,0,0,0,12,77,1,0,
         0,0,14,79,1,0,0,0,16,18,3,10,5,0,17,16,1,0,0,0,18,21,1,0,0,0,19,
         17,1,0,0,0,19,20,1,0,0,0,20,22,1,0,0,0,21,19,1,0,0,0,22,23,5,0,0,
@@ -29,15 +29,15 @@ def serializedATN():
         0,0,0,47,48,1,0,0,0,48,46,1,0,0,0,48,49,1,0,0,0,49,7,1,0,0,0,50,
         55,5,1,0,0,51,54,3,2,1,0,52,54,3,12,6,0,53,51,1,0,0,0,53,52,1,0,
         0,0,54,57,1,0,0,0,55,53,1,0,0,0,55,56,1,0,0,0,56,58,1,0,0,0,57,55,
-        1,0,0,0,58,59,5,2,0,0,59,9,1,0,0,0,60,69,5,14,0,0,61,69,5,12,0,0,
-        62,69,5,13,0,0,63,69,3,8,4,0,64,69,3,2,1,0,65,69,5,9,0,0,66,69,5,
-        8,0,0,67,69,5,5,0,0,68,60,1,0,0,0,68,61,1,0,0,0,68,62,1,0,0,0,68,
-        63,1,0,0,0,68,64,1,0,0,0,68,65,1,0,0,0,68,66,1,0,0,0,68,67,1,0,0,
-        0,69,11,1,0,0,0,70,78,5,14,0,0,71,78,5,12,0,0,72,78,5,13,0,0,73,
-        78,3,8,4,0,74,78,5,9,0,0,75,78,5,8,0,0,76,78,5,5,0,0,77,70,1,0,0,
-        0,77,71,1,0,0,0,77,72,1,0,0,0,77,73,1,0,0,0,77,74,1,0,0,0,77,75,
-        1,0,0,0,77,76,1,0,0,0,78,13,1,0,0,0,79,80,7,0,0,0,80,15,1,0,0,0,
-        10,19,25,32,42,44,48,53,55,68,77
+        1,0,0,0,58,59,5,2,0,0,59,9,1,0,0,0,60,69,5,15,0,0,61,69,5,13,0,0,
+        62,69,5,14,0,0,63,69,3,8,4,0,64,69,3,2,1,0,65,69,5,10,0,0,66,69,
+        5,8,0,0,67,69,5,9,0,0,68,60,1,0,0,0,68,61,1,0,0,0,68,62,1,0,0,0,
+        68,63,1,0,0,0,68,64,1,0,0,0,68,65,1,0,0,0,68,66,1,0,0,0,68,67,1,
+        0,0,0,69,11,1,0,0,0,70,78,5,15,0,0,71,78,5,13,0,0,72,78,5,14,0,0,
+        73,78,3,8,4,0,74,78,5,10,0,0,75,78,5,8,0,0,76,78,5,9,0,0,77,70,1,
+        0,0,0,77,71,1,0,0,0,77,72,1,0,0,0,77,73,1,0,0,0,77,74,1,0,0,0,77,
+        75,1,0,0,0,77,76,1,0,0,0,78,13,1,0,0,0,79,80,7,0,0,0,80,15,1,0,0,
+        0,10,19,25,32,42,44,48,53,55,68,77
     ]
 
 class diaParser ( Parser ):
@@ -51,12 +51,12 @@ class diaParser ( Parser ):
     sharedContextCache = PredictionContextCache()
 
     literalNames = [ "<INVALID>", "'{'", "'}'", "'''", "'\"'", "':='", "':'", 
-                     "'='", "','", "';'" ]
+                     "'='", "','", "'$'", "';'" ]
 
     symbolicNames = [ "<INVALID>", "LPAREN", "RPAREN", "SINGLE_QUOTE", "DOUBLE_QUOTE", 
-                      "Walros", "COLON", "EQUALS", "COMMA", "SEMICOLON", 
+                      "Walros", "COLON", "EQUALS", "COMMA", "DOLLAR", "SEMICOLON", 
                       "LINEBREAK", "WS", "STRING_SINGLE", "STRING_DOUBLE", 
-                      "CODE", "DICCODE", "VARIABLE" ]
+                      "CODE", "VARIABLE" ]
 
     RULE_rule_set = 0
     RULE_dictionary = 1
@@ -79,13 +79,13 @@ class diaParser ( Parser ):
     COLON=6
     EQUALS=7
     COMMA=8
-    SEMICOLON=9
-    LINEBREAK=10
-    WS=11
-    STRING_SINGLE=12
-    STRING_DOUBLE=13
-    CODE=14
-    DICCODE=15
+    DOLLAR=9
+    SEMICOLON=10
+    LINEBREAK=11
+    WS=12
+    STRING_SINGLE=13
+    STRING_DOUBLE=14
+    CODE=15
     VARIABLE=16
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
@@ -138,7 +138,7 @@ class diaParser ( Parser ):
             self.state = 19
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 95010) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 124674) != 0):
                 self.state = 16
                 self.statements()
                 self.state = 21
@@ -348,7 +348,7 @@ class diaParser ( Parser ):
                         self.state = 42
                         self._errHandler.sync(self)
                         token = self._input.LA(1)
-                        if token in [8, 12, 13, 14]:
+                        if token in [8, 13, 14, 15]:
                             self.state = 40
                             self.dicstatements()
                             pass
@@ -369,7 +369,7 @@ class diaParser ( Parser ):
                 self.state = 48 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 28928) != 0)):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & 57600) != 0)):
                     break
 
         except RecognitionException as re:
@@ -434,7 +434,7 @@ class diaParser ( Parser ):
             self.state = 55
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 95010) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 124674) != 0):
                 self.state = 53
                 self._errHandler.sync(self)
                 la_ = self._interp.adaptivePredict(self._input,6,self._ctx)
@@ -494,8 +494,8 @@ class diaParser ( Parser ):
         def COMMA(self):
             return self.getToken(diaParser.COMMA, 0)
 
-        def Walros(self):
-            return self.getToken(diaParser.Walros, 0)
+        def DOLLAR(self):
+            return self.getToken(diaParser.DOLLAR, 0)
 
         def getRuleIndex(self):
             return diaParser.RULE_statements
@@ -564,7 +564,7 @@ class diaParser ( Parser ):
             elif la_ == 8:
                 self.enterOuterAlt(localctx, 8)
                 self.state = 67
-                self.match(diaParser.Walros)
+                self.match(diaParser.DOLLAR)
                 pass
 
 
@@ -603,8 +603,8 @@ class diaParser ( Parser ):
         def COMMA(self):
             return self.getToken(diaParser.COMMA, 0)
 
-        def Walros(self):
-            return self.getToken(diaParser.Walros, 0)
+        def DOLLAR(self):
+            return self.getToken(diaParser.DOLLAR, 0)
 
         def getRuleIndex(self):
             return diaParser.RULE_nesStatements
@@ -628,17 +628,17 @@ class diaParser ( Parser ):
             self.state = 77
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [14]:
+            if token in [15]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 70
                 self.match(diaParser.CODE)
                 pass
-            elif token in [12]:
+            elif token in [13]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 71
                 self.match(diaParser.STRING_SINGLE)
                 pass
-            elif token in [13]:
+            elif token in [14]:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 72
                 self.match(diaParser.STRING_DOUBLE)
@@ -648,7 +648,7 @@ class diaParser ( Parser ):
                 self.state = 73
                 self.nestedStatements()
                 pass
-            elif token in [9]:
+            elif token in [10]:
                 self.enterOuterAlt(localctx, 5)
                 self.state = 74
                 self.match(diaParser.SEMICOLON)
@@ -658,10 +658,10 @@ class diaParser ( Parser ):
                 self.state = 75
                 self.match(diaParser.COMMA)
                 pass
-            elif token in [5]:
+            elif token in [9]:
                 self.enterOuterAlt(localctx, 7)
                 self.state = 76
-                self.match(diaParser.Walros)
+                self.match(diaParser.DOLLAR)
                 pass
             else:
                 raise NoViableAltException(self)
@@ -717,7 +717,7 @@ class diaParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 79
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 28928) != 0)):
+            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & 57600) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
