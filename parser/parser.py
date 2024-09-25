@@ -36,7 +36,6 @@ class MyCustomVisitor(diaVisitor):
         for child in ctx.getChildren():
             if isinstance(child, RuleContext):
                 text = child.getText()
-                print(text)
                 if ':' in text and not':=' in text and not (text.startswith('{') or text.startswith('"') or text.startswith("'")):
                     is_dict = True
 
@@ -89,7 +88,6 @@ class MyCustomVisitor(diaVisitor):
             self.output += "\n"  # Add newline
             self.start_of_line = True
 
-
 def parse_file_with_visitor(input_file_path, output_file_path):
     """
     Parse the input file using the custom visitor and save the output to a file.
@@ -105,7 +103,6 @@ def parse_file_with_visitor(input_file_path, output_file_path):
         token_stream = CommonTokenStream(lexer)
         parser = diaParser(token_stream)
         tree = parser.rule_set()  # Start parsing from the rule_set rule
-
         print('Starting parse...')
 
         # Create and use the visitor

@@ -18,10 +18,25 @@ WS      : [ \t\u000C]+ -> skip;
 STRING_SINGLE : '\'' (~'\'')* '\'';
 STRING_DOUBLE : '"' (~'"')* '"';
 
-// Define token for CODE, which is any sequence of characters except `{`, `}`, or line breaks
-// Make sure CODE comes after STRING_SINGLE and STRING_DOUBLE to avoid conflict
-CODE    : ~[{}\r\n'";]+;
+// Define token for code, which is any sequence of characters except `{`, `}`, or line breaks
+CODE    : ~[{}\r\n'";#]+;
+
+// Define token for comments that start with `#` and continue to the end of the line
+COMMENT_HASH : '#' (~[\r\n])* -> skip;
+
+// Define token for single-quoted comments and skip them
+COMMENT_SINGLE : '\'\'\'' (~'\'')* '\'\'\'' -> skip;
+
+// Define token for double-quoted comments and skip them
+COMMENT_DOUBLE : '"""' (~'"')* '"""' -> skip;
 
 // Parser rules
 nestedStatements : LPAREN statements* RPAREN;
-statements       : CODE | STRING_SINGLE | STRING_DOUBLE | nestedStatements | SEMICOLON;
+statements       : CODE 
+                 | STRING_SINGLE 
+                 | STRING_DOUBLE 
+                 | nestedStatements 
+                 | SEMICOLON 
+                 | COMMENT_HASH 
+                 | COMMENT_SINGLE 
+                 | COMMENT_DOUBLE;
