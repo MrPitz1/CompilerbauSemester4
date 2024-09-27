@@ -4,7 +4,7 @@ grammar dia;
 rule_set : statements* EOF;
 
 
-// Define token to skip comments
+// Define tokens to skip comments
 COMMENT_HASH : '#' ~[\r\n]* -> skip;
 COMMENT_SINGLE : '\'\'\'' (~'\'')* '\'\'\'' -> skip;
 COMMENT_DOUBLE : '"""' (~'"')* '"""' -> skip;
@@ -20,7 +20,7 @@ LINEBREAK    : [\r\n]+ -> skip;
 // Define tokens for other whitespace characters and skip them
 WS           : [ \t\u000C]+ -> skip;
 
-// Define token for strings
+// Define tokens for strings
 STRING_SINGLE : '\'' (~'\'')* '\'';
 STRING_DOUBLE : '"' (~'"')* '"';
 
@@ -30,7 +30,7 @@ CODE         : ~[{}\r\n'";#]+;
 // Parser rules
 nestedStatements : LPAREN statements* RPAREN;
 
-// Updated to ensure all types of statements are covered
+// Statements
 statements       : CODE 
                  | STRING_SINGLE 
                  | STRING_DOUBLE 
