@@ -1,0 +1,44 @@
+class Student {
+    def __init__(self, name, age) {
+        self.name = name;  # Initialize name
+        self.age = age;    # Initialize age
+    }
+
+    def get_details(self) {
+        return {"name": self.name, "age": self.age};  # Return details as a dictionary
+    }
+};
+
+class Course {
+    def __init__(self, title) {
+        self.title = title;
+        self.students = [];  # Initialize an empty list of students
+    }
+
+    def add_student(self, student) {
+        self.students.append(student);  # Add student to the course
+    }
+
+    def get_course_details(self) {
+        return {"title": self.title, "students": [student.get_details() for student in self.students]};  # Return course details with student info
+    }
+};
+
+# Create a dictionary of courses
+courses = {
+    "Math": Course("Math"),
+    "Science": Course("Science")
+};
+
+# Add students using lambda functions
+add_student_math = lambda name, age: courses["Math"].add_student(Student(name, age));
+add_student_science = lambda name, age: courses["Science"].add_student(Student(name, age));
+
+# Add students
+add_student_math("Alice", 20);
+add_student_math("Bob", 21);
+add_student_science("Charlie", 22);
+
+# Print course details
+print(courses["Math"].get_course_details());  # Output course details for Math
+print(courses["Science"].get_course_details());  # Output course details for Science
