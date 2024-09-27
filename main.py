@@ -4,6 +4,7 @@ from diaVisitor import diaVisitor
 from antlr4 import *
 import sys
 import re
+import os
 
 class MyCustomVisitor(diaVisitor):
     def __init__(self):
@@ -12,9 +13,10 @@ class MyCustomVisitor(diaVisitor):
         self.indent_level = 0
         self.start_of_line = True
         self.isLambda = False
+
     def visitCustomDict(self, ctx: diaParser.NestedStatementsContext):
         """
-        Handles custom dictionary-like structures in nested statements.
+        Handles custom dictionary-like structures in nested statements
         """
         for child in ctx.getChildren():
             if isinstance(child, RuleContext):
@@ -24,7 +26,7 @@ class MyCustomVisitor(diaVisitor):
 
     def visitNestedStatements(self, ctx: diaParser.NestedStatementsContext):
         """
-        Handles nested statements, adjusting indentation and calling visitCustomDict if a dictionary is detected.
+        Handles nested statements, adjusting indentation and calling visitCustomDict if a dictionary is detected
         """
         is_dict = False
         if self.isLambda:
@@ -32,6 +34,7 @@ class MyCustomVisitor(diaVisitor):
             for child in ctx.getChildren():
                 self.visit(child)
             return
+
         # Check if any child contains a colon which might indicate a dictionary
         for child in ctx.getChildren():
             if isinstance(child, RuleContext):
@@ -39,11 +42,13 @@ class MyCustomVisitor(diaVisitor):
                 if ':' in text and not':=' in text and not (text.startswith('{') or text.startswith('"') or text.startswith("'")):
                     is_dict = True
 
+        # Visit custom dictionary if identified
         if is_dict:
-            # Visit custom dictionary if identified
+            self.output += ' '
             self.visitCustomDict(ctx)
+        
+        # Handle nested statements with adjusted indentation
         else:
-            # Handle nested statements with adjusted indentation
             self.indent_level += 1
             self.output = self.output.rstrip()
             self.output += ":\n"
@@ -84,7 +89,6 @@ class MyCustomVisitor(diaVisitor):
                 self.visit(child)
 
         if ctx.SEMICOLON():
-            self.output = self.output.rstrip(';')  # Remove trailing semicolon
             self.output += "\n"  # Add newline
             self.start_of_line = True
 

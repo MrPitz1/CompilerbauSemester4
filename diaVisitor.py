@@ -1,4 +1,4 @@
-# Generated from C:/Users/simon/Documents/hochschule/compiler/CompilerbauSemester4/parser/dia.g4 by ANTLR 4.13.2
+# Generated from C:/Users/simon/Documents/hochschule/compiler/CompilerbauSemester4/dia.g4 by ANTLR 4.13.2
 from antlr4 import *
 if "." in __name__:
     from .diaParser import diaParser

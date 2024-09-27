@@ -1,4 +1,4 @@
-# Generated from C:/Users/simon/Documents/hochschule/compiler/CompilerbauSemester4/parser/dia.g4 by ANTLR 4.13.2
+# Generated from C:/Users/simon/Documents/hochschule/compiler/CompilerbauSemester4/dia.g4 by ANTLR 4.13.2
 # encoding: utf-8
 from antlr4 import *
 from io import StringIO
@@ -15,11 +15,11 @@ def serializedATN():
         1,2,1,2,1,2,1,2,1,2,3,2,32,8,2,1,2,0,0,3,0,2,4,0,0,39,0,9,1,0,0,
         0,2,14,1,0,0,0,4,31,1,0,0,0,6,8,3,4,2,0,7,6,1,0,0,0,8,11,1,0,0,0,
         9,7,1,0,0,0,9,10,1,0,0,0,10,12,1,0,0,0,11,9,1,0,0,0,12,13,5,0,0,
-        1,13,1,1,0,0,0,14,18,5,1,0,0,15,17,3,4,2,0,16,15,1,0,0,0,17,20,1,
+        1,13,1,1,0,0,0,14,18,5,4,0,0,15,17,3,4,2,0,16,15,1,0,0,0,17,20,1,
         0,0,0,18,16,1,0,0,0,18,19,1,0,0,0,19,21,1,0,0,0,20,18,1,0,0,0,21,
-        22,5,2,0,0,22,3,1,0,0,0,23,32,5,8,0,0,24,32,5,6,0,0,25,32,5,7,0,
-        0,26,32,3,2,1,0,27,32,5,3,0,0,28,32,5,9,0,0,29,32,5,10,0,0,30,32,
-        5,11,0,0,31,23,1,0,0,0,31,24,1,0,0,0,31,25,1,0,0,0,31,26,1,0,0,0,
+        22,5,5,0,0,22,3,1,0,0,0,23,32,5,11,0,0,24,32,5,9,0,0,25,32,5,10,
+        0,0,26,32,3,2,1,0,27,32,5,6,0,0,28,32,5,1,0,0,29,32,5,2,0,0,30,32,
+        5,3,0,0,31,23,1,0,0,0,31,24,1,0,0,0,31,25,1,0,0,0,31,26,1,0,0,0,
         31,27,1,0,0,0,31,28,1,0,0,0,31,29,1,0,0,0,31,30,1,0,0,0,32,5,1,0,
         0,0,3,9,18,31
     ]
@@ -34,11 +34,12 @@ class diaParser ( Parser ):
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'{'", "'}'", "';'" ]
+    literalNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
+                     "'{'", "'}'", "';'" ]
 
-    symbolicNames = [ "<INVALID>", "LPAREN", "RPAREN", "SEMICOLON", "LINEBREAK", 
-                      "WS", "STRING_SINGLE", "STRING_DOUBLE", "CODE", "COMMENT_HASH", 
-                      "COMMENT_SINGLE", "COMMENT_DOUBLE" ]
+    symbolicNames = [ "<INVALID>", "COMMENT_HASH", "COMMENT_SINGLE", "COMMENT_DOUBLE", 
+                      "LPAREN", "RPAREN", "SEMICOLON", "LINEBREAK", "WS", 
+                      "STRING_SINGLE", "STRING_DOUBLE", "CODE" ]
 
     RULE_rule_set = 0
     RULE_nestedStatements = 1
@@ -47,17 +48,17 @@ class diaParser ( Parser ):
     ruleNames =  [ "rule_set", "nestedStatements", "statements" ]
 
     EOF = Token.EOF
-    LPAREN=1
-    RPAREN=2
-    SEMICOLON=3
-    LINEBREAK=4
-    WS=5
-    STRING_SINGLE=6
-    STRING_DOUBLE=7
-    CODE=8
-    COMMENT_HASH=9
-    COMMENT_SINGLE=10
-    COMMENT_DOUBLE=11
+    COMMENT_HASH=1
+    COMMENT_SINGLE=2
+    COMMENT_DOUBLE=3
+    LPAREN=4
+    RPAREN=5
+    SEMICOLON=6
+    LINEBREAK=7
+    WS=8
+    STRING_SINGLE=9
+    STRING_DOUBLE=10
+    CODE=11
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -115,7 +116,7 @@ class diaParser ( Parser ):
             self.state = 9
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 4042) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 3678) != 0):
                 self.state = 6
                 self.statements()
                 self.state = 11
@@ -185,7 +186,7 @@ class diaParser ( Parser ):
             self.state = 18
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 4042) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & 3678) != 0):
                 self.state = 15
                 self.statements()
                 self.state = 20
@@ -263,42 +264,42 @@ class diaParser ( Parser ):
             self.state = 31
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [8]:
+            if token in [11]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 23
                 self.match(diaParser.CODE)
                 pass
-            elif token in [6]:
+            elif token in [9]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 24
                 self.match(diaParser.STRING_SINGLE)
                 pass
-            elif token in [7]:
+            elif token in [10]:
                 self.enterOuterAlt(localctx, 3)
                 self.state = 25
                 self.match(diaParser.STRING_DOUBLE)
                 pass
-            elif token in [1]:
+            elif token in [4]:
                 self.enterOuterAlt(localctx, 4)
                 self.state = 26
                 self.nestedStatements()
                 pass
-            elif token in [3]:
+            elif token in [6]:
                 self.enterOuterAlt(localctx, 5)
                 self.state = 27
                 self.match(diaParser.SEMICOLON)
                 pass
-            elif token in [9]:
+            elif token in [1]:
                 self.enterOuterAlt(localctx, 6)
                 self.state = 28
                 self.match(diaParser.COMMENT_HASH)
                 pass
-            elif token in [10]:
+            elif token in [2]:
                 self.enterOuterAlt(localctx, 7)
                 self.state = 29
                 self.match(diaParser.COMMENT_SINGLE)
                 pass
-            elif token in [11]:
+            elif token in [3]:
                 self.enterOuterAlt(localctx, 8)
                 self.state = 30
                 self.match(diaParser.COMMENT_DOUBLE)
